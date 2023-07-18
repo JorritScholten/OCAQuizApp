@@ -17,4 +17,10 @@
 
 ## Chosen technologies
 
+- code editor : intelij, vscode
+- database : postgresql
+- framework for backend : spring boot
+- framework for front-end : react + vite
+- plugin for styles : tailwind css
+
 ## Ubiquitous language definition
