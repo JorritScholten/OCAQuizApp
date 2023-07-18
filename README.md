@@ -32,7 +32,7 @@
 - code editor : intelij, vscode
 - database : postgresql
 - framework for backend : spring boot
-- framework for front-end : react + vite
+- framework for front-end : react + vite [see ADR](adr_vite_v1.md)
 - plugin for styles : tailwind css [see ADR](adr_tailwind_v1.md)
 
 ## Ubiquitous language definition
