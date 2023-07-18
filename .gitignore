@@ -1,3 +1,9 @@
 **~
 .idea
 .vscode
+frontend/node_modules
+frontend/dist
+bin
+build
+.gradle
+HELP.md
