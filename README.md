@@ -8,6 +8,18 @@
 
 ## Wireframes for UI
 
+### Homepage, login, Take a Quiz.
+
+![wirefram part one](Wireframe_part1.jpg)
+
+### End of quiz, make Choises for quiz, create quiz question (part 1).
+
+![wirefram part two](Wireframe_part2.jpg)
+
+### Moderator, create quiz question (part 2).
+
+![wirefram part three](Wireframe_part3.jpg)
+
 ## Personas
 
 - Wants to learn towards a programming test/exam.
