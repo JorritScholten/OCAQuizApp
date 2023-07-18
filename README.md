@@ -6,6 +6,8 @@
 
 ## Use case sketch
 
+![use case sketch](use_case_sketch.png)
+
 ## Wireframes for UI
 
 ### Homepage, login, Take a Quiz.
