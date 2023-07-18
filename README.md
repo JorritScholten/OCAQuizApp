@@ -33,6 +33,6 @@
 - database : postgresql
 - framework for backend : spring boot
 - framework for front-end : react + vite
-- plugin for styles : tailwind css
+- plugin for styles : tailwind css [see ADR](adr_tailwind_v1.md)
 
 ## Ubiquitous language definition
