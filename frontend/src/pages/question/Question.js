@@ -15,6 +15,7 @@ function CreateYesNo() {
     <form
       className="grid w-full md:justify-start justify-center bg-slate-200"
       method="post"
+      encType="multipart/form-data"
     >
       <h2>Yes/No question</h2>
       <label htmlFor="title">
@@ -22,7 +23,7 @@ function CreateYesNo() {
         <input
           type="text"
           id="title"
-          pattern="/[A-Z]{1}[ \S]+[.?]{1}/g"
+          pattern="[A-Z]{1}[ \S]+[.?]{1}"
           required
         />
       </label>
