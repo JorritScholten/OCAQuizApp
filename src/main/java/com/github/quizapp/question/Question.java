@@ -1,5 +1,6 @@
-package com.github.quizapp.entity;
+package com.github.quizapp.question;
 
+import com.github.quizapp.tag.Tag;
 import io.hypersistence.utils.hibernate.type.array.BooleanArrayType;
 import io.hypersistence.utils.hibernate.type.array.StringArrayType;
 import jakarta.persistence.*;

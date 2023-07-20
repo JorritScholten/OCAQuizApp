@@ -1,4 +1,4 @@
-package com.github.quizapp.entity;
+package com.github.quizapp.tag;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

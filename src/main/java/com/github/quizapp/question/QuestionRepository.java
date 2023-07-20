@@ -1,4 +1,4 @@
-package com.github.quizapp.entity;
+package com.github.quizapp.question;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
