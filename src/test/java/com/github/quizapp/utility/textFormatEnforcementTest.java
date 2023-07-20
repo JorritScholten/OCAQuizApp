@@ -14,13 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TextFormatEnforcementTest {
 
     static Stream<Arguments> provideForEnforceTextFormatting() {
-        ArrayList<String> tags = new ArrayList<>(List.of("Objects", "functions", "chapter 1.0", "Lists"
+        ArrayList<String> tags = new ArrayList<>(List.of("Objects", "functions", "chapter 2.0", "Lists"
         ));
 
         return Stream.of(
                 Arguments.of("objects", tags, true),
                 Arguments.of("object", tags, true),
-                Arguments.of("objectFunction", tags, false)
+                Arguments.of("objectFunction", tags, false),
+                Arguments.of("chapter 1.0",tags,false)
         );
     }
 
@@ -58,7 +59,7 @@ class TextFormatEnforcementTest {
 
     @ParameterizedTest
     @MethodSource("provideForEqualsIgnoreChars")
-    void equalsIgnoreChars(String comparator, String input, boolean result, char[] cases) {
+    void equalsIgnoreChars(String comparator, String input, boolean result, String[] cases) {
         assertEquals(TextFormatEnforcement.equalsIgnoreChars(comparator, input, cases), result);
     }
 
