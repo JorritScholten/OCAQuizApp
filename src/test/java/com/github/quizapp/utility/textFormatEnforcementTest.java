@@ -5,11 +5,24 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TextFormatEnforcementTest {
+
+    static Stream<Arguments> provideForEnforceTextFormatting() {
+        ArrayList<String> tags = new ArrayList<>(List.of("Objects", "functions", "chapter 1.0", "Lists"
+        ));
+
+        return Stream.of(
+                Arguments.of("objects", tags, true),
+                Arguments.of("object", tags, true),
+                Arguments.of("objectFunction", tags, false)
+        );
+    }
 
     static Stream<Arguments> provideForEqualsIgnoreChars() {
         return Stream.of(
@@ -54,4 +67,11 @@ class TextFormatEnforcementTest {
     void hasForbiddenChars(String input, char[] targets, boolean result) {
         assertEquals(TextFormatEnforcement.hasForbiddenChars(input, targets), result);
     }
+
+    @ParameterizedTest
+    @MethodSource("provideForEnforceTextFormatting")
+    void enforceTextFormatting(String value, ArrayList<String> tags, boolean result) {
+        assertEquals(TextFormatEnforcement.enforceTextFormatting(value,tags),result);
+    }
+
 }
