@@ -2,7 +2,7 @@ package com.github.quizapp;
 
 import org.junit.jupiter.api.Test;
 
-public class textFormatEnforcementTest {
+public class TextFormatEnforcementTest {
 
     @Test
     void ensureTagBecomesLowercase(){
