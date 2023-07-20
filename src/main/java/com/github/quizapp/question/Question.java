@@ -4,10 +4,7 @@ import com.github.quizapp.tag.Tag;
 import io.hypersistence.utils.hibernate.type.array.BooleanArrayType;
 import io.hypersistence.utils.hibernate.type.array.StringArrayType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import java.util.Set;
@@ -20,27 +17,30 @@ import java.util.Set;
 @Table(name = "questions")
 public class Question {
     @Id
+    @GeneratedValue
     private long id;
 
     private QuestionType type;
 
-    @Column(columnDefinition = "text")
+    @Column(columnDefinition = "text", nullable = false)
     private String title;
 
     @Type(StringArrayType.class)
-    @Column(columnDefinition = "text[]")
+    @Column(columnDefinition = "text[]", nullable = false)
     private String[] possibleAnswers;
 
     @Type(BooleanArrayType.class)
-    @Column(columnDefinition = "boolean[]")
+    @Column(columnDefinition = "boolean[]", nullable = false)
     private boolean[] correctAnswers;
 
     @Type(StringArrayType.class)
     @Column(columnDefinition = "text[]")
     private String[] reasoningForAnswers;
 
+    @Column(columnDefinition = "text", nullable = false)
     private String referenceToBook;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @Singular
+    @ManyToMany
     private Set<Tag> tags;
 }
