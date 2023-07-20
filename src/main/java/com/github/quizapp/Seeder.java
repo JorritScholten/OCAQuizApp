@@ -1,5 +1,6 @@
 package com.github.quizapp;
 
+import com.github.quizapp.question.Answer;
 import com.github.quizapp.question.Question;
 import com.github.quizapp.question.QuestionRepository;
 import com.github.quizapp.question.QuestionType;
@@ -40,9 +41,15 @@ public class Seeder implements CommandLineRunner {
                     Question.builder()
                             .type(QuestionType.YESNO)
                             .title("Is this a yes/no question?")
-                            .possibleAnswers(new String[]{"Yes", "No"})
-                            .correctAnswers(new boolean[]{true, false})
-                            .reasoningForAnswers(new String[]{"yes", "no"})
+                            .answer(Answer.builder()
+                                    .answer("Yes")
+                                    .isCorrect(true)
+                                    .build())
+                            .answer(Answer.builder()
+                                    .answer("No")
+                                    .isCorrect(false)
+                                    .explanation("obviously not correct")
+                                    .build())
                             .referenceToBook("0.0.0")
                             .tags(tagRepository.findByName("other"))
                             .build()
