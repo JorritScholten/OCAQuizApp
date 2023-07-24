@@ -1,5 +1,6 @@
 package com.github.quizapp.question;
 
+import com.github.quizapp.question.answer.Answer;
 import com.github.quizapp.tag.Tag;
 import jakarta.persistence.*;
 import lombok.*;

@@ -15,8 +15,8 @@ public class QuestionController {
     private QuestionRepository questionRepository;
 
     @PostMapping
-    public Question postQuestion(@RequestBody Question question) {
-        return questionRepository.save(question);
+    public QuestionDTO postQuestion(@RequestBody QuestionDTO question) {
+        return QuestionDTO.Mapper.toDto(questionRepository.save(question));
     }
 
     @GetMapping("{id}")
