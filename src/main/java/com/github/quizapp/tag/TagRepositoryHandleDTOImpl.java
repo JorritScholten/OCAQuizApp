@@ -12,6 +12,7 @@ public class TagRepositoryHandleDTOImpl implements TagRepositoryHandleDTO {
     @Lazy
     private TagRepository tagRepository;
 
+    @Override
     public Tag save(TagDTO dto) {
         var tag = TagDTO.Mapper.toTag(dto);
         if (tagRepository.findByName(tag.getName()).isEmpty()) {
@@ -22,6 +23,7 @@ public class TagRepositoryHandleDTOImpl implements TagRepositoryHandleDTO {
         }
     }
 
+    @Override
     public List<Tag> saveAll(Set<TagDTO> dtos) {
         return dtos.stream().map(this::save).collect(Collectors.toList());
     }

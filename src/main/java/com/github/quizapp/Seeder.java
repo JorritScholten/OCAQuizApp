@@ -1,6 +1,10 @@
 package com.github.quizapp;
 
-import com.github.quizapp.question.*;
+import com.github.quizapp.question.Question;
+import com.github.quizapp.question.QuestionRepository;
+import com.github.quizapp.question.QuestionType;
+import com.github.quizapp.question.answer.Answer;
+import com.github.quizapp.question.answer.AnswerRepository;
 import com.github.quizapp.tag.Tag;
 import com.github.quizapp.tag.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
