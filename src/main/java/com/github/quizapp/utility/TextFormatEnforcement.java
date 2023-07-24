@@ -86,7 +86,7 @@ public class TextFormatEnforcement {
 
         StringBuilder regexBuilder = new StringBuilder();
         for (String val : cases) {
-            regexBuilder.append('|');
+            regexBuilder.append("|");
             regexBuilder.append(val);
         }
 

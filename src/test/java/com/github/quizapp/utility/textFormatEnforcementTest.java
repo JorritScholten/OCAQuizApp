@@ -14,24 +14,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TextFormatEnforcementTest {
 
     static Stream<Arguments> provideForEnforceTextFormatting() {
-        ArrayList<String> tags = new ArrayList<>(List.of("Objects", "functions", "chapter 2.0", "Lists"
+        ArrayList<String> tags = new ArrayList<>(List.of("parameter", "functions", "chapter 2.0", "Lists"
         ));
 
         return Stream.of(
-                Arguments.of("objects", tags, true),
-                Arguments.of("object", tags, true),
-                Arguments.of("objectFunction", tags, false),
-                Arguments.of("chapter 1.0",tags,false)
+                Arguments.of("Parameter", tags, true),
+                Arguments.of("parameter", tags, true),
+                Arguments.of("functParam", tags, false),
+                Arguments.of("Mychapter",tags,false)
         );
     }
 
     static Stream<Arguments> provideForEqualsIgnoreChars() {
         return Stream.of(
-                Arguments.of("sub chapter", "sub-chapter", true, new char[]{' ', '-', '!'}),
-                Arguments.of("main chapter", "main chapter", true, new char[]{' ', '-'}),
-                Arguments.of("main chapter", "main chapter", true, new char[]{}),
-                Arguments.of("main chapter", "main_chapter", false, new char[]{}),
-                Arguments.of("bad chapter", "main chapter", false, new char[]{'_', '-'})
+                Arguments.of("sub chapter", "sub-chapter", true, new String[]{" ", "-", "!"}),
+                Arguments.of("main chapter", "main chapter", true, new String[]{" ", "-"}),
+                Arguments.of("main chapter", "main chapter", true, new String[]{}),
+                Arguments.of("main chapter", "main_chapter", false, new String[]{}),
+                Arguments.of("bad chapter", "main chapter", false, new String[]{"_", "-"})
         );
     }
 
