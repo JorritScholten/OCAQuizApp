@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -14,17 +15,17 @@ public class QuestionController {
     private QuestionRepository questionRepository;
 
     @PostMapping
-    public Question postQuestion(@RequestBody Question question){
+    public Question postQuestion(@RequestBody Question question) {
         return questionRepository.save(question);
     }
 
     @GetMapping("{id}")
-    public Optional<Question> getById(@PathVariable("id") long id) {
-        return questionRepository.findById(id);
+    public Optional<QuestionDTO> getById(@PathVariable("id") long id) {
+        return questionRepository.findById(id).map(QuestionDTO.Mapper::toDto);
     }
 
     @GetMapping
-    public List<Question> getItems() {
-        return questionRepository.findAll();
+    public List<QuestionDTO> getItems() {
+        return questionRepository.findAll().stream().map(QuestionDTO.Mapper::toDto).collect(Collectors.toList());
     }
 }
