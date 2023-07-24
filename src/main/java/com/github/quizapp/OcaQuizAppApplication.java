@@ -8,5 +8,4 @@ public class OcaQuizAppApplication {
     public static void main(String[] args) {
         SpringApplication.run(OcaQuizAppApplication.class, args);
     }
-
 }
