@@ -17,8 +17,8 @@ public class Answer {
     @GeneratedValue
     private long id;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "question_id")
+    @ManyToOne
+    @JoinColumn(name = "question_id", insertable = false, updatable = false)
     private Question question;
 
     @Column(columnDefinition = "text", nullable = false)

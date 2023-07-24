@@ -23,7 +23,8 @@ public class Question {
     private String title;
 
     @Singular
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinColumn
     private Set<Answer> answers;
 
     @Column(columnDefinition = "text", nullable = false)
