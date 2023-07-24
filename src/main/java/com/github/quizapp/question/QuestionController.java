@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin
@@ -26,6 +25,6 @@ public class QuestionController {
 
     @GetMapping
     public List<QuestionDTO> getItems() {
-        return questionRepository.findAll().stream().map(QuestionDTO.Mapper::toDto).collect(Collectors.toList());
+        return QuestionDTO.Mapper.toDto(questionRepository.findAll());
     }
 }
