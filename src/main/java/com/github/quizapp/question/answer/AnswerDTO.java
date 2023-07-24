@@ -1,9 +1,22 @@
 package com.github.quizapp.question.answer;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NonNull;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public record AnswerDTO(String answer, boolean isCorrect, String explanation) {
+@Builder
+@Getter
+@AllArgsConstructor
+public class AnswerDTO {
+    @NonNull
+    private final String answer;
+    private final boolean isCorrect;
+    private final String explanation;
+
     public static class Mapper {
         public static AnswerDTO toDto(Answer answer) {
             return new AnswerDTO(answer.getAnswer(), answer.isCorrect(), answer.getExplanation());

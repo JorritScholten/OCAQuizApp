@@ -16,13 +16,13 @@ public class QuestionRepositoryHandleDTOImpl implements QuestionRepositoryHandle
 
     @Override
     public Question save(QuestionDTO dto) {
-        var tags = tagRepository.saveAll(dto.tags());
-        var answers = answerRepository.saveAll(dto.answers());
+        var tags = tagRepository.saveAll(dto.getTags());
+        var answers = answerRepository.saveAll(dto.getAnswers());
         var question = Question.builder()
-                .type(dto.type())
-                .title(dto.title())
+                .type(dto.getType())
+                .title(dto.getTitle())
                 .answers(answers)
-                .referenceToBook(dto.referenceToBook())
+                .referenceToBook(dto.getReferenceToBook())
                 .tags(tags)
                 .build();
         return questionRepository.save(question);
