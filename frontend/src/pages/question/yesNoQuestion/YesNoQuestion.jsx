@@ -2,11 +2,11 @@ import React from "react";
 import { useState } from "react";
 
 export default function YesNoQuestion() {
-  const [type, setType] = "YESNO";
+  // const [type] = "YESNO";
   const [title, setTitle] = useState("");
-  const [answer1, setAnswer1] = useState("");
+  // const [answer1, setAnswer1] = useState("");
   const [isCorrect1, setIsCorrect1] = useState(Boolean);
-  const [answer2, setAnswer2] = useState("");
+  // const [answer2, setAnswer2] = useState("");
   const [isCorrect2, setIsCorrect2] = useState(Boolean);
   const [referenceToBook, setReferenceToBook] = useState("");
   const [name1, setName1] = useState("");
@@ -40,18 +40,26 @@ export default function YesNoQuestion() {
             },
           ],
           referenceToBook: referenceToBook,
-          name1: name1,
-          name2: name2,
-          name3: name3,
+          tags: [
+            {
+              name: name1,
+            },
+            {
+              name: name2,
+            },
+            {
+              name: name3,
+            },
+          ],
         }),
       });
       // let resJson = await res.json();
       if (res.status === 200) {
-        setType("");
+        // setType("");
         setTitle("");
-        setAnswer1("");
+        // setAnswer1("");
         setIsCorrect1(Boolean);
-        setAnswer2("");
+        // setAnswer2("");
         setIsCorrect2(Boolean);
         setName1("");
         setName2("");
@@ -71,16 +79,6 @@ export default function YesNoQuestion() {
       <h1 className="self-center">Create a question</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col space-y-2">
-        {/* <label htmlFor="type">
-          Type:
-          <input
-            type="text"
-            value={type}
-            placeholder="Type"
-            id="type"
-            onChange={(e) => setType(e.target.value)}
-          />
-        </label> */}
         <label htmlFor="title">
           Question:
           <input
@@ -90,14 +88,9 @@ export default function YesNoQuestion() {
             onChange={(e) => setTitle(e.target.value)}
           />
         </label>
-        <input
-          type="text"
-          value={answer1}
-          placeholder="Answer1"
-          onChange={(e) => setAnswer1(e.target.value)}
-        />
+
         <label htmlFor="isCorrect">
-          Is correct:
+          Yes:
           <input
             type="checkbox"
             value={isCorrect1}
@@ -105,42 +98,52 @@ export default function YesNoQuestion() {
             onChange={(e) => setIsCorrect1(e.target.value)}
           />
         </label>
-        <input
-          type="text"
-          value={answer2}
-          placeholder="Answer2"
-          onChange={(e) => setAnswer1(e.target.value)}
-        />
-        <input
-          type="text"
-          value={isCorrect2}
-          placeholder="IsCorrect2"
-          onChange={(e) => setIsCorrect2(e.target.value)}
-        />
-        <input
-          type="text"
-          value={referenceToBook}
-          placeholder="ReferenceToBook"
-          onChange={(e) => setReferenceToBook(e.target.value)}
-        />
-        <input
-          type="text"
-          value={name1}
-          placeholder="name1"
-          onChange={(e) => setName1(e.target.value)}
-        />
-        <input
-          type="text"
-          value={name2}
-          placeholder="name2"
-          onChange={(e) => setName2(e.target.value)}
-        />
-        <input
-          type="text"
-          value={name3}
-          placeholder="name3"
-          onChange={(e) => setName3(e.target.value)}
-        />
+
+        <label htmlFor="isCorrect">
+          No:
+          <input
+            type="checkbox"
+            value={isCorrect2}
+            id="IsCorrect2"
+            onChange={(e) => setIsCorrect2(e.target.value)}
+          />
+        </label>
+        <label htmlFor="ReferenceToBook">
+          Reference to book:
+          <input
+            type="text"
+            value={referenceToBook}
+            id="ReferenceToBook"
+            onChange={(e) => setReferenceToBook(e.target.value)}
+          />
+        </label>
+        <label htmlFor="name1">
+          Tag:
+          <input
+            type="text"
+            value={name1}
+            id="name1"
+            onChange={(e) => setName1(e.target.value)}
+          />
+        </label>
+        <label htmlFor="name2">
+          Tag:
+          <input
+            type="text"
+            value={name2}
+            id="name2"
+            onChange={(e) => setName2(e.target.value)}
+          />
+        </label>
+        <label htmlFor="name3">
+          Tag:
+          <input
+            type="text"
+            value={name3}
+            id="name3"
+            onChange={(e) => setName3(e.target.value)}
+          />
+        </label>
 
         <button type="submit">Create</button>
 
