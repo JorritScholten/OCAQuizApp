@@ -1,8 +1,6 @@
 import React from "react";
-import LoginButton from "../loginButton";
+// import LoginButton from "../loginButton";
 import HomeButton from "../homeButton";
-
-// with javaScript ensure that Home can be clicked and go to the home page. the same goes for the login button.
 
 export default function Header() {
   return (
@@ -11,7 +9,7 @@ export default function Header() {
       <h1>
         JAVA OCA 8 Quiz <h2>from Mala Gupta book</h2>
       </h1>
-      <LoginButton />
+      {/* <LoginButton /> */}
     </div>
   );
 }
