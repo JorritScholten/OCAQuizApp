@@ -1,5 +1,6 @@
-package com.github.quizapp.question;
+package com.github.quizapp.question.answer;
 
+import com.github.quizapp.question.Question;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +26,7 @@ public class Answer {
     private String answer;
 
     @Column(columnDefinition = "boolean", nullable = false)
-    private boolean isCorrect;
+    private Boolean isCorrect;
 
     @Column(columnDefinition = "text")
     private String explanation;

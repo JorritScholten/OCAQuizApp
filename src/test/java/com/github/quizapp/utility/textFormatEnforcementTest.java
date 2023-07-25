@@ -1,5 +1,6 @@
 package com.github.quizapp.utility;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TextFormatEnforcementTest {
 
@@ -34,7 +36,7 @@ class TextFormatEnforcementTest {
                 //control case 1
                 Arguments.of("functParam", tags, false),
                 //control case 2
-                Arguments.of("Mychapter",tags,false)
+                Arguments.of("Mychapter", tags, false)
         );
     }
 
@@ -43,7 +45,7 @@ class TextFormatEnforcementTest {
                 //true case on character - and space
                 Arguments.of("sub chapter", "sub-chapter", true, new String[]{" ", "-", "!"}),
                 //true case on just space
-                Arguments.of("main chapter", "main chapter", true, new String[]{" ", "-","!"}),
+                Arguments.of("main chapter", "main chapter", true, new String[]{" ", "-", "!"}),
                 //test on empty list without special characters
                 Arguments.of("main chapter", "main chapter", true, new String[]{}),
                 //test on empty list with underscore
@@ -107,7 +109,27 @@ class TextFormatEnforcementTest {
     @ParameterizedTest
     @MethodSource("provideArgumentsForEnforceTextFormatting")
     void enforceTextFormattingTest(String value, ArrayList<String> tags, boolean result) {
-        assertEquals(TextFormatEnforcement.enforceTextFormatting(value,tags),result);
+        assertEquals(TextFormatEnforcement.enforceTextFormatting(value, tags).isPresent(), result);
     }
 
+
+    @Test
+    void different_spellings_in_list() {
+        final List<String> targets = List.of("parameter", "other tag", "dummy tag");
+        final String[] options = {"parameter", "parameters", "Parameter", "Parameters", "PARAMETER", "PARAMETERS"};
+
+        for (var option : options) {
+            assertTrue(TextFormatEnforcement.enforceTextFormatting(option, targets).isPresent());
+        }
+    }
+
+    @Test
+    void different_spellings_not_in_list() {
+        final List<String> targets = List.of("other tag", "dummy tag");
+        final String[] options = {"parameter", "parameters", "Parameter", "Parameters", "PARAMETER", "PARAMETERS"};
+
+        for (var option : options) {
+            assertTrue(TextFormatEnforcement.enforceTextFormatting(option, targets).isEmpty());
+        }
+    }
 }
