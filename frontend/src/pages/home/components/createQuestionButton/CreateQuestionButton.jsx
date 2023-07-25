@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function CreateQuestionButton() {
   return (
     <>
       <nav>
         <ul>
           <li>
             <Link
-              to="/login"
-              className="bg-green-600 text-white px-2 py-2 rounded"
+              to="/question"
+              className="bg-green-600 text-white px-2 py-2 rounded flex items-center"
             >
-              Login
+              Create Quiz Question
             </Link>
           </li>
         </ul>
