@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FiRefreshCw } from "react-icons/fi";
 import Header from "../../components/header";
 
 export default function TagManagement() {
@@ -13,22 +14,23 @@ export default function TagManagement() {
 
 function ShowTags() {
   const [tags, setTags] = useState([]);
-  useEffect(() => {
+  function UpdateTags() {
     fetch("http://localhost:8080/api/v1/tag")
-      .then((res) => {
-        console.log(res);
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        setTags(data);
-      });
-  }, []);
+      .then((res) => res.json())
+      .then((data) => setTags(data));
+  }
+  useEffect(() => UpdateTags(), []);
 
   return (
     <>
       <div className="bg-slate-100 mx-2 pb-2">
-        <h2 className="text-center py-2">All tags</h2>
+        <div className="flex flex-row justify-around py-2 items-center">
+          <div />
+          <h2 className="">All tags</h2>
+          <button className="" onClick={() => UpdateTags()}>
+            <FiRefreshCw className="text-xl" />
+          </button>
+        </div>
         <div className="w-full flex flex-col space-y-2 items-center px-2">
           {tags.map((tag) => (
             <div
