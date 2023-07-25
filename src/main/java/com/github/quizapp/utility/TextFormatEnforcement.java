@@ -1,49 +1,41 @@
 package com.github.quizapp.utility;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class TextFormatEnforcement {
-
-
     public static final char[] FORBIDDEN_CHARS = {'^', '[', ']', '<', '>', ')', '$', '@', '#', '\'', '\"', '(', ')', '{', '}'};
     public static final String[] IGNORED_CHARS = {" ", "-", "\\."};
     public static final int LENIENCY = 1;
     public static final int TRAILING_CHARACTERS_ALLOWED = 1;
 
-    public static boolean enforceTextFormatting(String input, ArrayList<String> tags) {
+    public static Optional<String> enforceTextFormatting(String input, List<String> tags) {
         if (checkEqualsIgnoreCase(input, tags)) {
-            return true;
+            return Optional.of(input.toLowerCase());
         }
         input = input.toLowerCase();
-        System.out.println(input);
         for (String tag : tags) {
             tag = tag.toLowerCase();
 
-            System.out.println(" :" + tag);
             if (hasForbiddenChars(input, FORBIDDEN_CHARS)) {
-                return true;
+                return Optional.of(tag);
             } else if (equalsWithTrailingCharacters(tag, input, TRAILING_CHARACTERS_ALLOWED)) {
-                System.out.println(1);
-                return true;
+                return Optional.of(tag);
             } else if (equalsWithAbsoluteLeniency(tag, input, LENIENCY)) {
-                System.out.println(2);
-                return true;
+                return Optional.of(tag);
             } else if (equalsIgnoreChars(tag, input, IGNORED_CHARS)) {
-                System.out.println(3);
-                return true;
+                return Optional.of(tag);
             }
         }
-
-        return false;
+        return Optional.empty();
     }
 
-    static public boolean checkEqualsIgnoreCase(String value, ArrayList<String> tags) {
+    static public boolean checkEqualsIgnoreCase(String value, List<String> tags) {
         for (String tag : tags) {
             if (tag.equalsIgnoreCase(value)) {
                 return true;
             }
         }
-
         return false;
     }
 
@@ -61,19 +53,15 @@ public class TextFormatEnforcement {
             char comparatorValue = comparatorValues[i];
             if (comparatorValue != inputValue && comparatorValue >= '0' && comparatorValue <= '9' && inputValue >= '0' && inputValue <= '9') {
                 numberRes++;
-
             } else if (comparatorValues[i] != inputValues[i]) {
-
                 res++;
             }
         }
-        System.out.println(res);
 
         return (res != 0 || numberRes <= 0) && res <= leniency;
     }
 
     public static boolean equalsWithTrailingCharacters(String comparator, String value, int target) {
-
         int sizeDiff = comparator.length() - value.length();
         return sizeDiff > 0 ? comparator.startsWith(value) : value.startsWith(comparator) && Math.abs(comparator.length() - value.length()) <= target;
     }
@@ -82,7 +70,6 @@ public class TextFormatEnforcement {
         if (cases.length == 0) {
             return comparator.equals(value);
         }
-
 
         StringBuilder regexBuilder = new StringBuilder();
         for (String val : cases) {
@@ -104,5 +91,4 @@ public class TextFormatEnforcement {
         }
         return false;
     }
-
 }

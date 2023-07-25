@@ -1,5 +1,6 @@
-package com.github.quizapp.question;
+package com.github.quizapp.question.answer;
 
+import com.github.quizapp.question.Question;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
