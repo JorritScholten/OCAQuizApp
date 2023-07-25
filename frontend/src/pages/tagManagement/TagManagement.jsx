@@ -27,25 +27,19 @@ function ShowTags() {
 
   return (
     <>
-      <TagList tags={tags} />
-    </>
-  );
-}
-
-function TagList({ tags }) {
-  return (
-    <div className="bg-slate-100 mx-2 pb-2">
-      <h2 className="text-center py-2">All tags</h2>
-      <div className="w-full flex flex-col space-y-2 items-center px-2">
-        {tags.map((tag) => (
-          <div
-            className="w-full flex justify-center bg-slate-300"
-            key={tag.name}
-          >
-            {tag.name}
-          </div>
-        ))}
+      <div className="bg-slate-100 mx-2 pb-2">
+        <h2 className="text-center py-2">All tags</h2>
+        <div className="w-full flex flex-col space-y-2 items-center px-2">
+          {tags.map((tag) => (
+            <div
+              className="w-full flex justify-center bg-slate-300"
+              key={tag.name}
+            >
+              {tag.name}
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
