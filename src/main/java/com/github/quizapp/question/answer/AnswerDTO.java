@@ -14,12 +14,13 @@ import java.util.stream.Collectors;
 public class AnswerDTO {
     @NonNull
     private final String answer;
-    private final boolean isCorrect;
+    @NonNull
+    private final Boolean isCorrect;
     private final String explanation;
 
     public static class Mapper {
         public static AnswerDTO toDto(Answer answer) {
-            return new AnswerDTO(answer.getAnswer(), answer.isCorrect(), answer.getExplanation());
+            return new AnswerDTO(answer.getAnswer(), answer.getIsCorrect(), answer.getExplanation());
         }
 
         public static Set<AnswerDTO> toDto(Set<Answer> answers) {

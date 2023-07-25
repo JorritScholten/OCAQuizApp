@@ -26,7 +26,7 @@ public class Answer {
     private String answer;
 
     @Column(columnDefinition = "boolean", nullable = false)
-    private boolean isCorrect;
+    private Boolean isCorrect;
 
     @Column(columnDefinition = "text")
     private String explanation;
