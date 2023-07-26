@@ -33,14 +33,16 @@ export default function CreateMultipleChoice() {
       "http://localhost:8080/api/v1/question",
       "POST",
       JSON.stringify(postBody)
-    ).then(() => {
-      setQuestion(""),
-        setReferenceToBook(""),
-        setTags([]),
+    ).then((res) => {
+      if (res.ok) {
+        setQuestion("");
+        setReferenceToBook("");
+        setTags([]);
         setAnswers({
           answer: "",
           answers: [],
         });
+      }
     });
   };
 
@@ -60,6 +62,7 @@ export default function CreateMultipleChoice() {
           type="text"
           id="bookreference"
           required
+          value={referenceToBook}
         />
       </label>
       <label htmlFor="question" className="text-center">
@@ -71,6 +74,7 @@ export default function CreateMultipleChoice() {
           type="text"
           id="question"
           required
+          value={question}
         />
       </label>
       <div className="flex flex-row justify-evenly w-full bg-slate-300">
