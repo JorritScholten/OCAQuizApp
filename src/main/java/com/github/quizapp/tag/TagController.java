@@ -1,6 +1,7 @@
 package com.github.quizapp.tag;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,17 @@ public class TagController {
     }
 
     @GetMapping
-    public List<TagDTO> getTags(){
+    public List<TagDTO> getTags() {
         return TagDTO.Mapper.toDto(tagRepository.findAll());
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> deleteTag(@RequestBody TagDTO tagDTO) {
+        try {
+            tagRepository.delete(tagDTO);
+            return ResponseEntity.ok("Found and deleted tag with name: " + tagDTO.name());
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
