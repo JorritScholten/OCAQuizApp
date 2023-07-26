@@ -44,6 +44,7 @@ function AddRemoveInputField() {
                       name="tag"
                       className="form-control"
                       placeholder="tag"
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
                 </div>

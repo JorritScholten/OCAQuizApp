@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import AddRemoveInputField from "./AddRemoveInputField";
+
 export default function YesNoQuestion() {
   // const [type] = "YESNO";
   const [title, setTitle] = useState("");
@@ -61,7 +61,9 @@ export default function YesNoQuestion() {
         setIsCorrect1(Boolean);
         // setAnswer2("");
         setIsCorrect2(Boolean);
-        setName("");
+        setName1("");
+        setName2("");
+        setName3("");
 
         // setMessage("Yes/No question created successfully");
       } else {
@@ -115,8 +117,33 @@ export default function YesNoQuestion() {
             onChange={(e) => setReferenceToBook(e.target.value)}
           />
         </label>
-
-        <AddRemoveInputField />
+        <label htmlFor="name1">
+          Tag:
+          <input
+            type="text"
+            value={name1}
+            id="name1"
+            onChange={(e) => setName1(e.target.value)}
+          />
+        </label>
+        <label htmlFor="name2">
+          Tag:
+          <input
+            type="text"
+            value={name2}
+            id="name2"
+            onChange={(e) => setName2(e.target.value)}
+          />
+        </label>
+        <label htmlFor="name3">
+          Tag:
+          <input
+            type="text"
+            value={name3}
+            id="name3"
+            onChange={(e) => setName3(e.target.value)}
+          />
+        </label>
 
         <button type="submit">Create</button>
 
