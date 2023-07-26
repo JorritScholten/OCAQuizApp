@@ -45,19 +45,20 @@ function CreateTag({ updateTags }) {
     });
   };
   return (
-    <div className="bg-slate-100 m-2">
+    <div className="bg-slate-100 mx-2 px-2 flex flex-col">
       <h2 className="text-center">Create new tag</h2>
-      <form className="flex flex-col" onSubmit={submitTag}>
-        <label htmlFor="name">
+      <form className="flex flex-col w-full md:w-96 text-center self-center" onSubmit={submitTag}>
+        <label htmlFor="name" className="w-fit mx-2">
           Name:
           <input
             type="text"
             value={tag}
             id="name"
+            className=""
             onChange={(e) => setTag(e.target.value)}
           />
         </label>
-        <button className="items-center m-1 bg-green-300" type="submit">
+        <button className="items-center m-1 bg-green-300 md:w-40 self-center" type="submit">
           Create
         </button>
       </form>
@@ -79,7 +80,7 @@ function ShowTags({ tags, updateTags }) {
         <div className="w-full flex flex-col space-y-2 items-center px-2">
           {tags.map((tag) => (
             <div
-              className="w-full flex justify-center bg-slate-300"
+              className="w-full md:w-72 flex justify-center bg-slate-300"
               key={tag.name}
             >
               {tag.name}
