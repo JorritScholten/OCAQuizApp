@@ -21,7 +21,7 @@ export default function TagManagement() {
 }
 
 function ShowTags({ tags, updateTags }) {
-  const [tag, setTag] = useState("");
+  const [newTag, setNewTag] = useState("");
   const submitTag = async (e) => {
     e.preventDefault();
     fetch("http://localhost:8080/api/v1/tag", {
@@ -35,11 +35,11 @@ function ShowTags({ tags, updateTags }) {
       redirect: "follow", // manual, *follow, error
       referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
       body: JSON.stringify({
-        name: tag,
+        name: newTag,
       }),
     }).then((res) => {
       console.log(res);
-      setTag("");
+      setNewTag("");
       updateTags();
     });
   };
@@ -69,7 +69,10 @@ function ShowTags({ tags, updateTags }) {
           <h2 className="text-center col-span-7 place-self-center w-full">
             All tags
           </h2>
-          <button className="place-self-stretch col-span-2" onClick={() => updateTags()}>
+          <button
+            className="place-self-stretch col-span-2"
+            onClick={() => updateTags()}
+          >
             <FiRefreshCw className="text-xl text-green-700 w-full" />
           </button>
         </div>
@@ -80,10 +83,10 @@ function ShowTags({ tags, updateTags }) {
           >
             <input
               type="text"
-              value={tag}
+              value={newTag}
               id="name"
               className="text-center col-span-7 place-self-center w-full"
-              onChange={(e) => setTag(e.target.value)}
+              onChange={(e) => setNewTag(e.target.value)}
             />
             <button
               type="submit"
