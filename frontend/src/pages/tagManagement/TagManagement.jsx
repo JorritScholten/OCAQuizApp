@@ -98,6 +98,7 @@ function ShowTags({ tags, updateTags }) {
           <button
             className="place-self-stretch col-span-2"
             onClick={() => updateTags()}
+            title="Refresh tags"
           >
             <FiRefreshCw className="text-xl text-green-700 w-full" />
           </button>
@@ -118,6 +119,7 @@ function ShowTags({ tags, updateTags }) {
               type="submit"
               className="place-self-stretch col-span-2"
               onClick={submitTag}
+              title="Store new tag"
             >
               <FiPlus className="text-green-700 w-full" />
             </button>
@@ -141,12 +143,14 @@ function ShowTags({ tags, updateTags }) {
                     type="submit"
                     className="place-self-center"
                     onClick={updateTag}
+                    title="Save changes"
                   >
                     <FiShare className="text-green-700" />
                   </button>
                   <button
                     className="place-self-center"
                     onClick={() => setCurrentlyEditing("")}
+                    title="Undo changes"
                   >
                     <FiEdit className="text-red-700" />
                   </button>
@@ -167,12 +171,14 @@ function ShowTags({ tags, updateTags }) {
                       setCurrentlyEditing(tag.name);
                       setUpdatedTagValue(tag.name);
                     }}
+                    title="Update tag spelling"
                   >
                     <FiEdit className="text-black" />
                   </button>
                   <button
                     className="place-self-center"
                     onClick={() => deleteTag(tag.name)}
+                    title="Delete tag"
                   >
                     <FiDelete className="text-red-700" />
                   </button>
