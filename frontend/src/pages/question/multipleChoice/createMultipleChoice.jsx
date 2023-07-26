@@ -4,10 +4,10 @@ import NewTagList from "./newTagList";
 
 export default function CreateMultipleChoice() {
   const [answersOBJ, setAnswers] = useState({
-    answer: "test",
-    answers: ["testw", "test"],
+    answer: "",
+    answers: [],
   });
-  const [tags, setTags] = useState(["testw", "test"]);
+  const [tags, setTags] = useState([]);
   const [question, setQuestion] = useState("");
   const [referenceToBook, setReferenceToBook] = useState("");
 
@@ -39,6 +39,14 @@ export default function CreateMultipleChoice() {
       redirect: "follow",
       referrerPolicy: "no-referrer",
       body: JSON.stringify(postBody),
+    }).then(() => {
+      setQuestion(""),
+        setReferenceToBook(""),
+        setTags([]),
+        setAnswers({
+          answer: "",
+          answers: [],
+        });
     });
   };
 
