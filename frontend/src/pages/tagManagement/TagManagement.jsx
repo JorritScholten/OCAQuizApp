@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FiRefreshCw, FiDelete, FiPlus } from "react-icons/fi";
+import { FiRefreshCw, FiDelete, FiPlus, FiEdit } from "react-icons/fi";
 import Header from "../../components/header";
 
 export default function TagManagement() {
@@ -65,27 +65,29 @@ function ShowTags({ tags, updateTags }) {
   return (
     <>
       <div className="bg-slate-100 m-2 pb-2  flex flex-col">
-        <div className="justify-center py-2 w-full md:w-80 grid grid-cols-6 px-2">
-          <h2 className="text-center col-span-5 place-self-center w-full">All tags</h2>
-          <button className="place-self-stretch" onClick={() => updateTags()}>
+        <div className="justify-center py-2 w-full md:w-80 grid grid-cols-9 px-2">
+          <h2 className="text-center col-span-7 place-self-center w-full">
+            All tags
+          </h2>
+          <button className="place-self-stretch col-span-2" onClick={() => updateTags()}>
             <FiRefreshCw className="text-xl text-green-700 w-full" />
           </button>
         </div>
         <div className="w-full flex flex-col space-y-2 items-center px-2">
           <form
-            className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-6"
+            className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-9"
             onSubmit={() => console.log("create tag")}
           >
             <input
               type="text"
               value={tag}
               id="name"
-              className="text-center col-span-5 place-self-center w-full"
+              className="text-center col-span-7 place-self-center w-full"
               onChange={(e) => setTag(e.target.value)}
             />
             <button
               type="submit"
-              className="place-self-stretch"
+              className="place-self-stretch col-span-2"
               onClick={submitTag}
             >
               <FiPlus className="text-green-700 w-full" />
@@ -93,12 +95,18 @@ function ShowTags({ tags, updateTags }) {
           </form>
           {tags.map((tag) => (
             <div
-              className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-6"
+              className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-9"
               key={tag.name}
             >
-              <div className="text-center col-span-5 place-self-center">
+              <div className="text-center col-span-7 place-self-center">
                 {tag.name}
               </div>
+              <button
+                className="place-self-center"
+                onClick={() => console.log("update:" + tag.name)}
+              >
+                <FiEdit className="text-black" />
+              </button>
               <button
                 className="place-self-center"
                 onClick={() => deleteTag(tag.name)}
