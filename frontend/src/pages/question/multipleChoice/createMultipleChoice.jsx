@@ -65,7 +65,6 @@ export default function CreateMultipleChoice() {
           }}
           type="text"
           id="bookreference"
-          //pattern="[A-Z]{1}[ \S]+[.?]{1}"
           required
         />
       </label>
@@ -77,7 +76,6 @@ export default function CreateMultipleChoice() {
           }}
           type="text"
           id="question"
-          //pattern="[A-Z]{1}[ \S]+[.?]{1}"
           required
         />
       </label>
@@ -86,7 +84,6 @@ export default function CreateMultipleChoice() {
           <NewAnswerList
             answers={answersOBJ.answers}
             handleChange={(e) => {
-              console.log(e);
               setAnswers(e);
             }}
           />
@@ -94,7 +91,6 @@ export default function CreateMultipleChoice() {
         <NewTagList
           tags={tags}
           handleChange={(e) => {
-            console.log(e);
             setTags(e);
           }}
         />
