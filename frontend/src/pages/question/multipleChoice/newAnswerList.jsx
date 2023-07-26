@@ -6,6 +6,9 @@ export default function NewAnswerList({ answers, handleChange }) {
 
   function add(event) {
     event.preventDefault();
+    if (answers.length === 0) {
+      setCorrectAnswer(newAnswer);
+    }
     let tempAnwers = answers;
     tempAnwers.push(newAnswer);
     let resAnswers = tempAnwers;
