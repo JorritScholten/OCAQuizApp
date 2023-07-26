@@ -64,12 +64,11 @@ function ShowTags({ tags, updateTags }) {
   }
   return (
     <>
-      <div className="bg-slate-100 m-2 pb-2">
-        <div className="flex flex-row justify-around py-2 items-center">
-          <div />
-          <h2 className="">All tags</h2>
-          <button className="" onClick={() => updateTags()}>
-            <FiRefreshCw className="text-xl text-green-700" />
+      <div className="bg-slate-100 m-2 pb-2  flex flex-col">
+        <div className="justify-center py-2 w-full md:w-80 grid grid-cols-6 px-2">
+          <h2 className="text-center col-span-5 place-self-center w-full">All tags</h2>
+          <button className="place-self-stretch" onClick={() => updateTags()}>
+            <FiRefreshCw className="text-xl text-green-700 w-full" />
           </button>
         </div>
         <div className="w-full flex flex-col space-y-2 items-center px-2">
