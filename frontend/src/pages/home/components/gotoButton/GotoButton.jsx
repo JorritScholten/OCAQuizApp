@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function GotoTagManagement() {
+export default function GotoButton({to, text}) {
   return (
     <Link
-      to="/tagManagement"
+      to={to}
       className="bg-green-600 text-white px-2 py-2 rounded flex items-center"
     >
-      Tag Management
+      {text}
     </Link>
   );
 }
