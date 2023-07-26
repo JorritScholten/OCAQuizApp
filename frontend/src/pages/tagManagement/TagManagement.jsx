@@ -66,9 +66,27 @@ function ShowTags({ tags, updateTags }) {
   const [updatedTagValue, setUpdatedTagValue] = useState("");
   const updateTag = async (e) => {
     e.preventDefault();
-    console.log("updating " + currentlyEditing + " to: " + updatedTagValue);
-    setUpdatedTagValue("");
-    setCurrentlyEditing("");
+    fetch("http://localhost:8080/api/v1/tag", {
+      method: "PATCH",
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify({
+        name: currentlyEditing,
+        newName: updatedTagValue,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        setUpdatedTagValue("");
+        setCurrentlyEditing("");
+        updateTags();
+      }
+    });
   };
   return (
     <>
