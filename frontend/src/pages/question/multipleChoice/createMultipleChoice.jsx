@@ -5,8 +5,8 @@ import { performJSONFetch } from "../../../utils/fetch";
 
 export default function CreateMultipleChoice() {
   const [answersOBJ, setAnswers] = useState({
-    answer: "",
-    answers: [],
+    correctAnswer: "",
+    allAnswers: [],
   });
   const [tags, setTags] = useState([]);
   const [question, setQuestion] = useState("");
@@ -18,10 +18,10 @@ export default function CreateMultipleChoice() {
       type: "MULTIPLECHOICE",
       title: question,
       referenceToBook: referenceToBook,
-      answers: answersOBJ.answers.map((ans) => {
+      answers: answersOBJ.allAnswers.map((ans) => {
         return {
           answer: ans,
-          isCorrect: ans === answersOBJ.answer,
+          isCorrect: ans === answersOBJ.correctAnswer,
         };
       }),
       tags: tags.map((tag) => {
@@ -39,8 +39,8 @@ export default function CreateMultipleChoice() {
         setReferenceToBook("");
         setTags([]);
         setAnswers({
-          answer: "",
-          answers: [],
+          correctAnswer: "",
+          allAnswers: [],
         });
       }
     });
@@ -80,7 +80,7 @@ export default function CreateMultipleChoice() {
       <div className="flex flex-row justify-evenly w-full bg-slate-300">
         {
           <NewAnswerList
-            answers={answersOBJ.answers}
+            answers={answersOBJ.allAnswers}
             handleChange={(e) => {
               setAnswers(e);
             }}

@@ -12,7 +12,7 @@ export default function NewAnswerList({ answers, handleChange }) {
     let tempAnwers = answers;
     tempAnwers.push(newAnswer);
     let resAnswers = tempAnwers;
-    handleChange({ answers: resAnswers, answer: correctAnswer });
+    handleChange({ allAnswers: resAnswers, correctAnswer: correctAnswer });
     setNewAnswer("");
   }
 
@@ -25,7 +25,7 @@ export default function NewAnswerList({ answers, handleChange }) {
     let tempAnwers = answers;
     let resAnswers = tempAnwers.filter((item) => item != answer);
 
-    handleChange({ answers: resAnswers, answer: { correctAnswer } });
+    handleChange({ allAnswers: resAnswers, correctAnswer: { correctAnswer } });
   };
 
   return (
@@ -43,20 +43,20 @@ export default function NewAnswerList({ answers, handleChange }) {
         </button>
       </label>
       <div className="flex flex-col">
-        {answers.map((item) => {
+        {answers.map((answer) => {
           return (
             <AnswerInput
               className="flex flex-row justify-between"
-              key={item}
-              value={item}
-              isCorrect={item === correctAnswer}
-              removeHandler={(e) => {
-                remove(e);
+              key={answer}
+              value={answer}
+              isCorrect={answer === correctAnswer}
+              removeHandler={(answerToRemove) => {
+                remove(answerToRemove);
               }}
               setCorrectHandler={(newCorrectAnswer) => {
                 setCorrectAnswer(newCorrectAnswer);
                 let tempAnwers = answers;
-                handleChange({ answers: tempAnwers, answer: newCorrectAnswer });
+                handleChange({ allAnswers: tempAnwers, correctAnswer: newCorrectAnswer });
               }}
             ></AnswerInput>
           );
