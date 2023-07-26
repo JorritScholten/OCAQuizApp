@@ -8,25 +8,24 @@ export default function CreateMultipleChoice() {
     answers: ["testw", "test"],
   });
   const [tags, setTags] = useState(["testw", "test"]);
-  const [title, setTitle] = useState("");
+  const [question, setQuestion] = useState("");
+  const [referenceToBook, setReferenceToBook] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const postBody ={
+    const postBody = {
       type: "MULTIPLECHOICE",
-      title: title,
-       answers: 
-        answersOBJ.answers.map((ans) => {
-          return {
-            answer: ans,
-            isCorrect: ans === answersOBJ.answer,
-          };
-        }),
-      tags: 
-        tags.map((tag) => {
-          return { name: tag };
-        }),
-      
+      title: question,
+      referenceToBook: referenceToBook,
+      answers: answersOBJ.answers.map((ans) => {
+        return {
+          answer: ans,
+          isCorrect: ans === answersOBJ.answer,
+        };
+      }),
+      tags: tags.map((tag) => {
+        return { name: tag };
+      }),
     };
     console.log(postBody);
     await fetch("http://localhost:8080/api/v1/question", {
@@ -50,15 +49,27 @@ export default function CreateMultipleChoice() {
       encType="multipart/form-data"
     >
       <h2 className="text-center">Multiple choice question</h2>
-      <label htmlFor="title" className="text-center">
-        Title:
+      <label htmlFor="bookreference" className="text-center">
+        <span>reference</span>
         <input
           onChange={(e) => {
-            setTitle(e.target.value);
+            setReferenceToBook(e.target.value);
           }}
           type="text"
-          id="title"
-          pattern="[A-Z]{1}[ \S]+[.?]{1}"
+          id="bookreference"
+          //pattern="[A-Z]{1}[ \S]+[.?]{1}"
+          required
+        />
+      </label>
+      <label htmlFor="question" className="text-center">
+        <span>question</span>
+        <input
+          onChange={(e) => {
+            setQuestion(e.target.value);
+          }}
+          type="text"
+          id="question"
+          //pattern="[A-Z]{1}[ \S]+[.?]{1}"
           required
         />
       </label>
