@@ -3,17 +3,25 @@ import { FiRefreshCw } from "react-icons/fi";
 import Header from "../../components/header";
 
 export default function TagManagement() {
+  const [tags, setTags] = useState([]);
+  function UpdateTags() {
+    fetch("http://localhost:8080/api/v1/tag")
+      .then((res) => res.json())
+      .then((data) => setTags(data));
+  }
+  useEffect(() => UpdateTags(), []);
+
   return (
     <div className="w-screen flex flex-col">
       <Header />
       <h1>Tag management</h1>
-      <CreateTag />
-      <ShowTags />
+      <CreateTag updateTags={UpdateTags} />
+      <ShowTags tags={tags} updateTags={UpdateTags} />
     </div>
   );
 }
 
-function CreateTag() {
+function CreateTag({ updateTags }) {
   const [tag, setTag] = useState("");
   const submitTag = async (e) => {
     e.preventDefault();
@@ -33,7 +41,7 @@ function CreateTag() {
     }).then((res) => {
       console.log(res);
       setTag("");
-      // UpdateTags();
+      updateTags();
     });
   };
   return (
@@ -49,28 +57,22 @@ function CreateTag() {
             onChange={(e) => setTag(e.target.value)}
           />
         </label>
-        <button className="items-center m-1 bg-green-300" type="submit">Create</button>
+        <button className="items-center m-1 bg-green-300" type="submit">
+          Create
+        </button>
       </form>
     </div>
   );
 }
 
-function ShowTags() {
-  const [tags, setTags] = useState([]);
-  function UpdateTags() {
-    fetch("http://localhost:8080/api/v1/tag")
-      .then((res) => res.json())
-      .then((data) => setTags(data));
-  }
-  useEffect(() => UpdateTags(), []);
-
+function ShowTags({ tags, updateTags }) {
   return (
     <>
       <div className="bg-slate-100 m-2 pb-2">
         <div className="flex flex-row justify-around py-2 items-center">
           <div />
           <h2 className="">All tags</h2>
-          <button className="" onClick={() => UpdateTags()}>
+          <button className="" onClick={() => updateTags()}>
             <FiRefreshCw className="text-xl" />
           </button>
         </div>
