@@ -54,7 +54,7 @@ export default function CreateMultipleChoice() {
             answers={answers}
             handleChange={(e) => {
               console.log(e);
-              setAnswers(e);
+              setAnswers(e.answers);
             }}
           />
         }

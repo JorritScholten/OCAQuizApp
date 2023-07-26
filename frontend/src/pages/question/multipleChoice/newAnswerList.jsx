@@ -9,8 +9,7 @@ export default function NewAnswerList({ answers, handleChange }) {
     let tempAnwers = answers;
     tempAnwers.push(newAnswer);
     let resAnswers = tempAnwers;
-
-    handleChange(resAnswers);
+    handleChange({answers:resAnswers,answer:correctAnswer});
     setNewAnswer("");
   }
 
@@ -23,7 +22,7 @@ export default function NewAnswerList({ answers, handleChange }) {
     let tempAnwers = answers;
     let resAnswers = tempAnwers.filter((item) => item != answer);
 
-    handleChange(resAnswers);
+    handleChange({answers:resAnswers,answer:{correctAnswer}});
   };
 
   return (
@@ -48,7 +47,7 @@ export default function NewAnswerList({ answers, handleChange }) {
               key={item}
               value={item}
               isCorrect={item === correctAnswer}
-              removeandler={(e) => {
+              removeHandler={(e) => {
                 remove(e);
               }}
               setCorrectHandler={(e) => {
