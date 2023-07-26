@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FiRefreshCw, FiDelete, FiPlus, FiEdit } from "react-icons/fi";
+import { FiRefreshCw, FiDelete, FiPlus, FiEdit, FiShare } from "react-icons/fi";
 import Header from "../../components/header";
 
 export default function TagManagement() {
@@ -62,6 +62,14 @@ function ShowTags({ tags, updateTags }) {
       updateTags();
     });
   }
+  const [currentlyEditing, setCurrentlyEditing] = useState("");
+  const [updatedTagValue, setUpdatedTagValue] = useState("");
+  const updateTag = async (e) => {
+    e.preventDefault();
+    console.log("updating " + currentlyEditing + " to: " + updatedTagValue);
+    setUpdatedTagValue("");
+    setCurrentlyEditing("");
+  };
   return (
     <>
       <div className="bg-slate-100 m-2 pb-2  flex flex-col">
@@ -96,28 +104,64 @@ function ShowTags({ tags, updateTags }) {
               <FiPlus className="text-green-700 w-full" />
             </button>
           </form>
-          {tags.map((tag) => (
-            <div
-              className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-9"
-              key={tag.name}
-            >
-              <div className="text-center col-span-7 place-self-center">
-                {tag.name}
-              </div>
-              <button
-                className="place-self-center"
-                onClick={() => console.log("update:" + tag.name)}
-              >
-                <FiEdit className="text-black" />
-              </button>
-              <button
-                className="place-self-center"
-                onClick={() => deleteTag(tag.name)}
-              >
-                <FiDelete className="text-red-700" />
-              </button>
-            </div>
-          ))}
+          {tags.map((tag) => {
+            if (tag.name === currentlyEditing) {
+              console.log("currently editing: " + tag.name);
+              return (
+                <form
+                  className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-9"
+                  key={tag.name}
+                >
+                  <input
+                    className="text-center col-span-7 place-self-center w-full"
+                    type="text"
+                    id="name"
+                    value={updatedTagValue}
+                    onChange={(e) => setUpdatedTagValue(e.target.value)}
+                  />
+                  <button
+                    type="submit"
+                    className="place-self-center"
+                    onClick={updateTag}
+                  >
+                    <FiShare className="text-green-700" />
+                  </button>
+                  <button
+                    className="place-self-center"
+                    onClick={() => setCurrentlyEditing("")}
+                  >
+                    <FiEdit className="text-red-700" />
+                  </button>
+                </form>
+              );
+            } else {
+              return (
+                <div
+                  className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-9"
+                  key={tag.name}
+                >
+                  <div className="text-center col-span-7 place-self-center">
+                    {tag.name}
+                  </div>
+                  <button
+                    className="place-self-center"
+                    onClick={() => {
+                      setCurrentlyEditing(tag.name);
+                      setUpdatedTagValue(tag.name);
+                    }}
+                  >
+                    <FiEdit className="text-black" />
+                  </button>
+                  <button
+                    className="place-self-center"
+                    onClick={() => deleteTag(tag.name)}
+                  >
+                    <FiDelete className="text-red-700" />
+                  </button>
+                </div>
+              );
+            }
+          })}
         </div>
       </div>
     </>
