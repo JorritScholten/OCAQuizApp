@@ -7,4 +7,6 @@ public interface TagRepositoryHandleDTO {
     Tag save(TagDTO dto);
 
     List<Tag> saveAll(Set<TagDTO> dtos);
+
+    void delete(TagDTO dto) throws RuntimeException;
 }
