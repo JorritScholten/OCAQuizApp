@@ -9,7 +9,7 @@ export default function NewAnswerList({ answers, handleChange }) {
     let tempAnwers = answers;
     tempAnwers.push(newAnswer);
     let resAnswers = tempAnwers;
-    handleChange({answers:resAnswers,answer:correctAnswer});
+    handleChange({ answers: resAnswers, answer: correctAnswer });
     setNewAnswer("");
   }
 
@@ -22,7 +22,7 @@ export default function NewAnswerList({ answers, handleChange }) {
     let tempAnwers = answers;
     let resAnswers = tempAnwers.filter((item) => item != answer);
 
-    handleChange({answers:resAnswers,answer:{correctAnswer}});
+    handleChange({ answers: resAnswers, answer: { correctAnswer } });
   };
 
   return (
@@ -43,7 +43,7 @@ export default function NewAnswerList({ answers, handleChange }) {
         {answers.map((item) => {
           return (
             <AnswerInput
-            className="flex flex-row justify-between"
+              className="flex flex-row justify-between"
               key={item}
               value={item}
               isCorrect={item === correctAnswer}
@@ -60,12 +60,13 @@ export default function NewAnswerList({ answers, handleChange }) {
     </div>
   );
 }
+
 function AnswerInput({ value, isCorrect, setCorrectHandler, removeHandler }) {
   return (
     <div>
       <span>{value}</span>
       <button
-      className="text-center p-1 bg-slate-500 m-1 rounded-full"
+        className="text-center p-1 bg-slate-500 m-1 rounded-full"
         onClick={(event) => {
           event.preventDefault();
           removeHandler(value);

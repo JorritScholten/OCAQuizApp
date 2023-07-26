@@ -11,8 +11,8 @@ export default function NewTagList({ tags, handleChange }) {
   function addTag(event) {
     event.preventDefault();
     let tempTags = tags;
-    tempTags.push(newTag)
-    let resTags = tempTags
+    tempTags.push(newTag);
+    let resTags = tempTags;
 
     handleChange(resTags);
     setNewTag("");
