@@ -73,6 +73,25 @@ function CreateTag({ updateTags }) {
 }
 
 function ShowTags({ tags, updateTags }) {
+  async function deleteTag(tag) {
+    fetch("http://localhost:8080/api/v1/tag", {
+      method: "DELETE",
+      mode: "cors", // no-cors, *cors, same-origin
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, *same-origin, omit
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow", // manual, *follow, error
+      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+      body: JSON.stringify({
+        name: tag,
+      }),
+    }).then((res) => {
+      console.log(res);
+      updateTags();
+    });
+  }
   return (
     <>
       <div className="bg-slate-100 m-2 pb-2">
@@ -86,7 +105,7 @@ function ShowTags({ tags, updateTags }) {
         <div className="w-full flex flex-col space-y-2 items-center px-2">
           {tags.map((tag) => (
             <div
-              className="w-full md:w-72 justify-center bg-slate-300 grid grid-cols-6"
+              className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-6"
               key={tag.name}
             >
               <div className="text-center col-span-5 place-self-center">
@@ -94,7 +113,7 @@ function ShowTags({ tags, updateTags }) {
               </div>
               <button
                 className="place-self-center"
-                onClick={() => console.log("send delete request")}
+                onClick={() => deleteTag(tag.name)}
               >
                 <FiDelete className="text-red-700" />
               </button>
