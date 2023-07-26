@@ -73,7 +73,7 @@ function ShowTags({ tags, updateTags }) {
   return (
     <>
       <div className="bg-slate-100 m-2 pb-2  flex flex-col">
-        <div className="justify-center py-2 w-full md:w-80 grid grid-cols-9 px-2">
+        <div className="justify-center py-2 w-full md:w-80 grid grid-cols-9 place-self-center md:px-0 px-2">
           <h2 className="text-center col-span-7 place-self-center w-full">
             All tags
           </h2>
