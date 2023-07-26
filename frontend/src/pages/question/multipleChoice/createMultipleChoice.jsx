@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import NewAnswerList from "./newAnswerList";
 import NewTagList from "./newTagList";
+import { performJSONFetch } from "../../../utils/fetch";
 
 export default function CreateMultipleChoice() {
   const [answersOBJ, setAnswers] = useState({
@@ -28,18 +29,11 @@ export default function CreateMultipleChoice() {
       }),
     };
     console.log(postBody);
-    await fetch("http://localhost:8080/api/v1/question", {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(postBody),
-    }).then(() => {
+    await performJSONFetch(
+      "http://localhost:8080/api/v1/question",
+      "POST",
+      JSON.stringify(postBody)
+    ).then(() => {
       setQuestion(""),
         setReferenceToBook(""),
         setTags([]),
