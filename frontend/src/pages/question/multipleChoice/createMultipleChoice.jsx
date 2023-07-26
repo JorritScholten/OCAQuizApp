@@ -3,13 +3,32 @@ import NewAnswerList from "./newAnswerList";
 import NewTagList from "./newTagList";
 
 export default function CreateMultipleChoice() {
-  const [answersOBJ, setAnswers] = useState({answer:"test",answers:["testw", "test"]});
+  const [answersOBJ, setAnswers] = useState({
+    answer: "test",
+    answers: ["testw", "test"],
+  });
   const [tags, setTags] = useState(["testw", "test"]);
   const [title, setTitle] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const postBody ={
+      type: "MULTIPLECHOICE",
+      title: title,
+       answers: 
+        answersOBJ.answers.map((ans) => {
+          return {
+            answer: ans,
+            isCorrect: ans === answersOBJ.answer,
+          };
+        }),
+      tags: 
+        tags.map((tag) => {
+          return { name: tag };
+        }),
+      
+    };
+    console.log(postBody);
     await fetch("http://localhost:8080/api/v1/question", {
       method: "POST",
       mode: "cors",
@@ -20,12 +39,7 @@ export default function CreateMultipleChoice() {
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
-      body: JSON.stringify({
-        type: "MULTIPLECHOICE",
-        title: title,
-        answers: [{}],
-        tags: [{}],
-      }),
+      body: JSON.stringify(postBody),
     });
   };
 
