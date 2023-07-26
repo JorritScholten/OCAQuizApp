@@ -38,7 +38,6 @@ function ShowTags({ tags, updateTags }) {
         name: newTag,
       }),
     }).then((res) => {
-      console.log(res);
       setNewTag("");
       updateTags();
     });
@@ -58,8 +57,9 @@ function ShowTags({ tags, updateTags }) {
         name: tag,
       }),
     }).then((res) => {
-      console.log(res);
-      updateTags();
+      if (res.ok) {
+        updateTags();
+      }
     });
   }
   const [currentlyEditing, setCurrentlyEditing] = useState("");
@@ -104,10 +104,7 @@ function ShowTags({ tags, updateTags }) {
           </button>
         </div>
         <div className="w-full flex flex-col space-y-2 items-center px-2">
-          <form
-            className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-9"
-            onSubmit={() => console.log("create tag")}
-          >
+          <form className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-9">
             <input
               type="text"
               value={newTag}
