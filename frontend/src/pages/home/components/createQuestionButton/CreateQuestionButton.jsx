@@ -6,13 +6,15 @@ export default function CreateQuestionButton() {
     <>
       <nav>
         <ul>
-          <li>
+          <li className="">
+            <div></div>
             <Link
               to="/question"
-              className="bg-green-600 text-white px-2 py-2 rounded flex items-center"
+              className="bg-green-600 text-white px-2 py-2 rounded flex justify-items-center w-72"
             >
               Create Quiz Question
             </Link>
+            <div></div>
           </li>
         </ul>
       </nav>
