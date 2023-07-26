@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FiRefreshCw, FiDelete, FiPlus, FiEdit, FiShare } from "react-icons/fi";
 import Header from "../../components/header";
+import { performJSONFetch } from "../../utils/fetch";
 
 export default function TagManagement() {
   const [tags, setTags] = useState([]);
@@ -24,39 +25,25 @@ function ShowTags({ tags, updateTags }) {
   const [newTag, setNewTag] = useState("");
   const submitTag = async (e) => {
     e.preventDefault();
-    fetch("http://localhost:8080/api/v1/tag", {
-      method: "POST",
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify({
+    performJSONFetch(
+      "http://localhost:8080/api/v1/tag",
+      "POST",
+      JSON.stringify({
         name: newTag,
-      }),
-    }).then((res) => {
+      })
+    ).then(() => {
       setNewTag("");
       updateTags();
     });
   };
   async function deleteTag(tag) {
-    fetch("http://localhost:8080/api/v1/tag", {
-      method: "DELETE",
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify({
+    performJSONFetch(
+      "http://localhost:8080/api/v1/tag",
+      "DELETE",
+      JSON.stringify({
         name: tag,
-      }),
-    }).then((res) => {
+      })
+    ).then((res) => {
       if (res.ok) {
         updateTags();
       }
@@ -66,21 +53,14 @@ function ShowTags({ tags, updateTags }) {
   const [updatedTagValue, setUpdatedTagValue] = useState("");
   const updateTag = async (e) => {
     e.preventDefault();
-    fetch("http://localhost:8080/api/v1/tag", {
-      method: "PATCH",
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      credentials: "same-origin", // include, *same-origin, omit
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      body: JSON.stringify({
+    performJSONFetch(
+      "http://localhost:8080/api/v1/tag",
+      "PATCH",
+      JSON.stringify({
         name: currentlyEditing,
         newName: updatedTagValue,
-      }),
-    }).then((res) => {
+      })
+    ).then((res) => {
       if (res.ok) {
         setUpdatedTagValue("");
         setCurrentlyEditing("");
@@ -123,7 +103,6 @@ function ShowTags({ tags, updateTags }) {
           </form>
           {tags.map((tag) => {
             if (tag.name === currentlyEditing) {
-              console.log("currently editing: " + tag.name);
               return (
                 <form
                   className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-9"
