@@ -1,34 +1,28 @@
 import React, { useState } from "react";
-import NewAnswerList from "./newAnswerList";
-import NewTagList from "./newTagList";
+import SelectionAnswerList from "./selectionNewAnswerList";
+import NewTagList from "../multipleChoice/newTagList";
 
-export default function CreateMultipleChoice() {
+export default function CreateSelectionChoice() {
   const [answersOBJ, setAnswers] = useState({
-    answer: "",
     answers: [],
+    correctAnswers: [],
   });
   const [tags, setTags] = useState([]);
   const [question, setQuestion] = useState("");
   const [referenceToBook, setReferenceToBook] = useState("");
 
   const handleSubmit = async (e) => {
+
+    if(answersOBJ.correctAnswers.length<1){return;}
     e.preventDefault();
-    if (answersOBJ.answers.length < 1) {
-      console.log("no answers");
-      return;
-    }
-    if (answersOBJ.answer==="") {
-      console.log("no answer correct");
-      return;
-    }
     const postBody = {
-      type: "MULTIPLECHOICE",
+      type: "SELECTIONCHOICE",
       title: question,
       referenceToBook: referenceToBook,
       answers: answersOBJ.answers.map((ans) => {
         return {
           answer: ans,
-          isCorrect: ans === answersOBJ.answer,
+          isCorrect: answersOBJ.answer.includes(ans),
         };
       }),
       tags: tags.map((tag) => {
@@ -89,7 +83,7 @@ export default function CreateMultipleChoice() {
       </label>
       <div className="flex flex-row justify-evenly w-full bg-slate-300">
         {
-          <NewAnswerList
+          <SelectionAnswerList
             answers={answersOBJ.answers}
             handleChange={(e) => {
               setAnswers(e);
@@ -104,7 +98,10 @@ export default function CreateMultipleChoice() {
         />
       </div>
       <button
-        onClick={handleSubmit}
+        onClick={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
         type="submit"
         id="type"
         value="multiple-choice"
