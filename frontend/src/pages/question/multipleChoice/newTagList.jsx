@@ -14,11 +14,6 @@ export default function NewTagList({ tags, handleChange }) {
     tempTags.push(newTag)
     let resTags = tempTags
 
-    console.log(tags);
-    console.log(tempTags);
-    console.log(resTags);
-
-    console.log(resTags);
     handleChange(resTags);
     setNewTag("");
   }
@@ -65,7 +60,7 @@ function TagInput({ value, removehandler }) {
     <div>
       <span>{value}</span>
       <button
-        className="bg-red-300"
+        className="bg-slate-500  text-center p-1 m-1 rounded-full"
         onClick={(event) => {
           event.preventDefault();
           removehandler(value);
