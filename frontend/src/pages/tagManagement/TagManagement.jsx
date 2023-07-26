@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FiRefreshCw, FiDelete } from "react-icons/fi";
+import { FiRefreshCw, FiDelete, FiPlus } from "react-icons/fi";
 import Header from "../../components/header";
 
 export default function TagManagement() {
@@ -15,13 +15,12 @@ export default function TagManagement() {
     <div className="w-screen flex flex-col">
       <Header />
       <h1>Tag management</h1>
-      <CreateTag updateTags={UpdateTags} />
       <ShowTags tags={tags} updateTags={UpdateTags} />
     </div>
   );
 }
 
-function CreateTag({ updateTags }) {
+function ShowTags({ tags, updateTags }) {
   const [tag, setTag] = useState("");
   const submitTag = async (e) => {
     e.preventDefault();
@@ -44,35 +43,6 @@ function CreateTag({ updateTags }) {
       updateTags();
     });
   };
-  return (
-    <div className="bg-slate-100 mx-2 px-2 flex flex-col">
-      <h2 className="text-center">Create new tag</h2>
-      <form
-        className="flex flex-col w-full md:w-96 text-center self-center"
-        onSubmit={submitTag}
-      >
-        <label htmlFor="name" className="w-fit mx-2">
-          Name:
-          <input
-            type="text"
-            value={tag}
-            id="name"
-            className=""
-            onChange={(e) => setTag(e.target.value)}
-          />
-        </label>
-        <button
-          className="items-center m-1 bg-green-300 md:w-40 self-center"
-          type="submit"
-        >
-          Create
-        </button>
-      </form>
-    </div>
-  );
-}
-
-function ShowTags({ tags, updateTags }) {
   async function deleteTag(tag) {
     fetch("http://localhost:8080/api/v1/tag", {
       method: "DELETE",
@@ -103,6 +73,25 @@ function ShowTags({ tags, updateTags }) {
           </button>
         </div>
         <div className="w-full flex flex-col space-y-2 items-center px-2">
+          <form
+            className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-6"
+            onSubmit={() => console.log("create tag")}
+          >
+            <input
+              type="text"
+              value={tag}
+              id="name"
+              className="text-center col-span-5 place-self-center w-full"
+              onChange={(e) => setTag(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="place-self-stretch"
+              onClick={submitTag}
+            >
+              <FiPlus className="text-green-700 w-full" />
+            </button>
+          </form>
           {tags.map((tag) => (
             <div
               className="w-full md:w-80 justify-center bg-slate-300 grid grid-cols-6"
