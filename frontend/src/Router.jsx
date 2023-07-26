@@ -15,6 +15,7 @@ export default function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/tagManagement" element={<TagManagement />} />
         <Route path="*" element={<h1>Not Found</h1>} />
+        <Route path="/question/m" element={<CreateMultipleChoice/>}></Route>
       </Routes>
     </BrowserRouter>
   );
