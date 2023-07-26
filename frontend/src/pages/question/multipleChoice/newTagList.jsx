@@ -41,21 +41,21 @@ export default function NewTagList({ tags, handleChange }) {
       </label>
 
       <div className="flex flex-col">
-        {tags.map((item) => (
+        {tags.map((tag) => (
           <TagInput
-            key={item}
-            value={item}
-            removehandler={(e) => {
-              removeTag(e);
+            key={tag}
+            value={tag}
+            removeHandler={(tagToRemove) => {
+              removeTag(tagToRemove);
             }}
-          ></TagInput>
+          />
         ))}
       </div>
     </div>
   );
 }
 
-function TagInput({ value, removehandler }) {
+function TagInput({ value, removeHandler }) {
   return (
     <div>
       <span>{value}</span>
@@ -63,7 +63,7 @@ function TagInput({ value, removehandler }) {
         className="bg-slate-500  text-center p-1 m-1 rounded-full"
         onClick={(event) => {
           event.preventDefault();
-          removehandler(value);
+          removeHandler(value);
         }}
       >
         remove

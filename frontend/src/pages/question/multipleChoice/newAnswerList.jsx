@@ -56,9 +56,12 @@ export default function NewAnswerList({ answers, handleChange }) {
               setCorrectHandler={(newCorrectAnswer) => {
                 setCorrectAnswer(newCorrectAnswer);
                 let tempAnwers = answers;
-                handleChange({ allAnswers: tempAnwers, correctAnswer: newCorrectAnswer });
+                handleChange({
+                  allAnswers: tempAnwers,
+                  correctAnswer: newCorrectAnswer,
+                });
               }}
-            ></AnswerInput>
+            />
           );
         })}
       </div>
@@ -82,8 +85,8 @@ function AnswerInput({ value, isCorrect, setCorrectHandler, removeHandler }) {
       {isCorrect ? (
         <button
           className="bg-green-300 text-center p-1 m-1 rounded-full"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={(event) => {
+            event.preventDefault();
           }}
         >
           correct
@@ -91,8 +94,8 @@ function AnswerInput({ value, isCorrect, setCorrectHandler, removeHandler }) {
       ) : (
         <button
           className="bg-red-300 text-center p-1 m-1 rounded-full"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={(event) => {
+            event.preventDefault();
             setCorrectHandler(value);
           }}
         >

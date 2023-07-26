@@ -12,8 +12,8 @@ export default function CreateMultipleChoice() {
   const [question, setQuestion] = useState("");
   const [referenceToBook, setReferenceToBook] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const postBody = {
       type: "MULTIPLECHOICE",
       title: question,
@@ -28,7 +28,6 @@ export default function CreateMultipleChoice() {
         return { name: tag };
       }),
     };
-    console.log(postBody);
     await performJSONFetch(
       "http://localhost:8080/api/v1/question",
       "POST",
@@ -93,15 +92,27 @@ export default function CreateMultipleChoice() {
           }}
         />
       </div>
-      <button
-        onClick={handleSubmit}
-        type="submit"
-        id="type"
-        value="multiple-choice"
-        className="bg-gray-300 text-center"
-      >
-        Submit
-      </button>
+      {answersOBJ.allAnswers.length === 0 ||
+      question === "" ||
+      referenceToBook === "" ? (
+        <div
+          className="bg-gray-300 text-center"
+          id="type"
+          value="multiple-choice"
+        >
+          Submit
+        </div>
+      ) : (
+        <button
+          onClick={handleSubmit}
+          className="bg-green-300 text-center"
+          type="submit"
+          id="type"
+          value="multiple-choice"
+        >
+          Submit
+        </button>
+      )}
     </form>
   );
 }
