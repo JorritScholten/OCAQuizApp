@@ -50,8 +50,10 @@ export default function NewAnswerList({ answers, handleChange }) {
               removeHandler={(e) => {
                 remove(e);
               }}
-              setCorrectHandler={(e) => {
-                setCorrectAnswer(e);
+              setCorrectHandler={(newCorrectAnswer) => {
+                setCorrectAnswer(newCorrectAnswer);
+                let tempAnwers = answers;
+                handleChange({ answers: tempAnwers, answer: newCorrectAnswer });
               }}
             ></AnswerInput>
           );
