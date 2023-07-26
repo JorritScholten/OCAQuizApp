@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/home";
 import Question from "./pages/question";
 import Login from "./pages/login";
+import CreateMultipleChoice from "./pages/question/multipleChoice/createMultipleChoice";
 import TagManagement from "./pages/tagManagement";
 
 export default function Router() {
