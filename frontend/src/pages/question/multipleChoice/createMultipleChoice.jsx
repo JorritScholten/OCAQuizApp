@@ -3,7 +3,7 @@ import NewAnswerList from "./newAnswerList";
 import NewTagList from "./newTagList";
 
 export default function CreateMultipleChoice() {
-  const [answers, setAnswers] = useState(["testw", "test"]);
+  const [answersOBJ, setAnswers] = useState({answer:"test",answers:["testw", "test"]});
   const [tags, setTags] = useState(["testw", "test"]);
   const [title, setTitle] = useState("");
 
@@ -51,10 +51,10 @@ export default function CreateMultipleChoice() {
       <div className="flex flex-row justify-evenly w-full bg-slate-300">
         {
           <NewAnswerList
-            answers={answers}
+            answers={answersOBJ.answers}
             handleChange={(e) => {
               console.log(e);
-              setAnswers(e.answers);
+              setAnswers(e);
             }}
           />
         }
