@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from "../../components/header";
 import CreateMultipleChoice from "./multipleChoice/createMultipleChoice";
 import CreateYesNoQuestion from "./yesNoQuestion/createYesNoQuestion.jsx";
+import CreateSelectionChoice from "./multipleSelection/createSelectionChoice";
 export default function Question() {
   const typeOptions = ["Yes/No", "Multiple choice", "Multiple selection"];
   const [typeChoice, setTypeChoice] = useState(typeOptions[1]);
@@ -43,7 +44,7 @@ export default function Question() {
             <CreateMultipleChoice />
           ) : null}
           {typeChoice === typeOptions[2] ? (
-            <div>selection question undefined</div>
+            <CreateSelectionChoice />
           ) : null}
         </div>
       </div>

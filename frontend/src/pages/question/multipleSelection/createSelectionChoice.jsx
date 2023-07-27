@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SelectionAnswerList from "./selectionNewAnswerList";
-import NewTagList from "../multipleChoice/newTagList";
+import NewTagList from "../components";
 
 export default function CreateSelectionChoice() {
   const [answersOBJ, setAnswers] = useState({
