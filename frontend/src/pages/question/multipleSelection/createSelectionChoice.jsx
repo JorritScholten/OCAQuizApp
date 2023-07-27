@@ -7,7 +7,7 @@ export default function CreateSelectionChoice() {
     allAnswers: [],
     correctAnswers: [],
   });
-  const [tagsObj, setTags] = useState([]);
+  const [tagsObj, setTags] = useState({tags:[]});
   const [question, setQuestion] = useState("");
   const [referenceToBook, setReferenceToBook] = useState("");
 
@@ -98,7 +98,7 @@ export default function CreateSelectionChoice() {
           />
         }
         <NewTagList
-          tags={tagsObj}
+          tags={tagsObj.tags}
           handleChange={(e) => {
             setTags(e);
           }}
