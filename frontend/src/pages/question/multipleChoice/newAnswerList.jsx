@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
-export default function NewAnswerList({ answers, handleChange }) {
+export default function NewAnswerList({ allAnswers, handleChange }) {
   const [newAnswer, setNewAnswer] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
 
   function add(event) {
     event.preventDefault();
-    if (answers.length === 0) {
+    if (allAnswers.length === 0) {
       setCorrectAnswer(newAnswer);
     }
-    let tempAnwers = answers;
+    let tempAnwers = allAnswers;
     tempAnwers.push(newAnswer);
     let resAnswers = tempAnwers;
     handleChange({ allAnswers: resAnswers, correctAnswer: correctAnswer });
@@ -22,7 +22,7 @@ export default function NewAnswerList({ answers, handleChange }) {
   }
 
   const remove = (answer) => {
-    let tempAnwers = answers;
+    let tempAnwers = allAnswers;
     let resAnswers = tempAnwers.filter((item) => item != answer);
 
     handleChange({ allAnswers: resAnswers, correctAnswer: { correctAnswer } });
@@ -43,7 +43,7 @@ export default function NewAnswerList({ answers, handleChange }) {
         </button>
       </label>
       <div className="flex flex-col">
-        {answers.map((answer) => {
+        {allAnswers.map((answer) => {
           return (
             <AnswerInput
               className="flex flex-row justify-between"
@@ -55,7 +55,7 @@ export default function NewAnswerList({ answers, handleChange }) {
               }}
               setCorrectHandler={(newCorrectAnswer) => {
                 setCorrectAnswer(newCorrectAnswer);
-                let tempAnwers = answers;
+                let tempAnwers = allAnswers;
                 handleChange({
                   allAnswers: tempAnwers,
                   correctAnswer: newCorrectAnswer,

@@ -2,27 +2,27 @@ import React, { useState } from "react";
 
 export default function NewTagList({ tags, handleChange }) {
   const [newTag, setNewTag] = useState("");
+  
+    function addTag(event) {
+      event.preventDefault();
+      let tempTags = tags;
+      tempTags.push(newTag);
+      let resTags = tempTags;
+  
+      handleChange({tags:resTags});
+      setNewTag("");
+    }
 
   function handleChangeTag(event) {
     event.preventDefault();
     setNewTag(event.target.value);
   }
 
-  function addTag(event) {
-    event.preventDefault();
-    let tempTags = tags;
-    tempTags.push(newTag);
-    let resTags = tempTags;
-
-    handleChange(resTags);
-    setNewTag("");
-  }
-
   function removeTag(tag) {
     let tempTags = tags;
     let resTags = tempTags.filter((item) => item != tag);
 
-    handleChange(resTags);
+    handleChange({tags:resTags});
   }
 
   return (

@@ -8,7 +8,7 @@ export default function CreateMultipleChoice() {
     correctAnswer: "",
     allAnswers: [],
   });
-  const [tags, setTags] = useState([]);
+  const [tagsOBJ, setTags] = useState({ tags: [] });
   const [question, setQuestion] = useState("");
   const [referenceToBook, setReferenceToBook] = useState("");
 
@@ -24,7 +24,7 @@ export default function CreateMultipleChoice() {
           isCorrect: ans === answersOBJ.correctAnswer,
         };
       }),
-      tags: tags.map((tag) => {
+      tags: tagsOBJ.tags.map((tag) => {
         return { name: tag };
       }),
     };
@@ -36,7 +36,7 @@ export default function CreateMultipleChoice() {
       if (res.ok) {
         setQuestion("");
         setReferenceToBook("");
-        setTags([]);
+        setTags({ tags: [] });
         setAnswers({
           correctAnswer: "",
           allAnswers: [],
@@ -79,22 +79,23 @@ export default function CreateMultipleChoice() {
       <div className="flex flex-row justify-evenly w-full bg-slate-300">
         {
           <NewAnswerList
-            answers={answersOBJ.allAnswers}
+            allAnswers={answersOBJ.allAnswers}
             handleChange={(e) => {
               setAnswers(e);
             }}
           />
         }
         <NewTagList
-          tags={tags}
-          handleChange={(e) => {
-            setTags(e);
+          tags={tagsOBJ.tags}
+          handleChange={(tagsOBJ) => {
+            setTags(tagsOBJ);
           }}
         />
       </div>
       {answersOBJ.allAnswers.length === 0 ||
       question === "" ||
-      referenceToBook === "" ? (
+      referenceToBook === "" ||
+      tagsOBJ.tags.length === 0 ? (
         <div
           className="bg-gray-300 text-center"
           id="type"
