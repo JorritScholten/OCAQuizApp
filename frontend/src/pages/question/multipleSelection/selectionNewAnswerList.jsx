@@ -4,11 +4,21 @@ export default function SelectionAnswerList({ answers, handleChange }) {
   const [newAnswer, setNewAnswer] = useState("");
   const [correctAnswers, setCorrectAnswers] = useState([]);
 
-  function addToanswers(value){
-    let tempList=correctAnswers;
+  function addToanswers(value) {
+    let tempList = correctAnswers;
     tempList.push(value);
     setCorrectAnswers(tempList);
-    handleChange({allAnswers:answers,correctAnswers:correctAnswers});
+    handleChange({ allAnswers: answers, correctAnswers: correctAnswers });
+  }
+
+  function removeFromAnswers(value) {
+    let tempList = correctAnswers;
+    setCorrectAnswers(
+      tempList.filter((ans) => {
+        ans != value;
+      })
+    );
+    handleChange({ allAnswers: answers, correctAnswers: correctAnswers });
   }
 
   function add(event) {
@@ -16,7 +26,7 @@ export default function SelectionAnswerList({ answers, handleChange }) {
     let tempAnwers = answers;
     tempAnwers.push(newAnswer);
     let resAnswers = tempAnwers;
-    handleChange({allAnswers:resAnswers,correctAnswers:correctAnswers});
+    handleChange({ allAnswers: resAnswers, correctAnswers: correctAnswers });
     setNewAnswer("");
   }
 
@@ -28,10 +38,16 @@ export default function SelectionAnswerList({ answers, handleChange }) {
   const remove = (answer) => {
     let tempAnwers = answers;
     let resAnswers = tempAnwers.filter((item) => item != answer);
-    setCorrectAnswers(correctAnswers.filter((item)=>{item!= answer}))
+    setCorrectAnswers(
+      correctAnswers.filter((item) => {
+        item != answer;
+      })
+    );
 
-    handleChange({allAnswers:resAnswers,answer:{correctAnswer: correctAnswers}});
-    
+    handleChange({
+      allAnswers: resAnswers,
+      answer: { correctAnswer: correctAnswers },
+    });
   };
 
   return (
@@ -52,12 +68,15 @@ export default function SelectionAnswerList({ answers, handleChange }) {
         {answers.map((item) => {
           return (
             <AnswerInput
-            className="flex flex-row justify-between"
+              className="flex flex-row justify-between"
               key={item}
               value={item}
               isCorrect={correctAnswers.includes(item)}
               removeHandler={(e) => {
                 remove(e);
+              }}
+              unsetCorrectHandler={(e) => {
+                removeFromAnswers(e);
               }}
               setCorrectHandler={(e) => {
                 addToanswers(e);
@@ -69,12 +88,18 @@ export default function SelectionAnswerList({ answers, handleChange }) {
     </div>
   );
 }
-function AnswerInput({ value, isCorrect, setCorrectHandler, removeHandler }) {
+function AnswerInput({
+  value,
+  isCorrect,
+  unsetCorrectHandler,
+  setCorrectHandler,
+  removeHandler,
+}) {
   return (
     <div>
       <span>{value}</span>
       <button
-      className="text-center p-1 bg-slate-500 m-1 rounded-full"
+        className="text-center p-1 bg-slate-500 m-1 rounded-full"
         onClick={(event) => {
           event.preventDefault();
           removeHandler(value);
@@ -87,6 +112,7 @@ function AnswerInput({ value, isCorrect, setCorrectHandler, removeHandler }) {
           className="bg-green-300 text-center p-1 m-1 rounded-full"
           onClick={(e) => {
             e.preventDefault();
+            unsetCorrectHandler(value);
           }}
         >
           correct
