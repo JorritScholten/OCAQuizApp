@@ -3,6 +3,7 @@ import Header from "../../components/header";
 import YesNoQuestion from "./yesNoQuestion";
 
 import CreateMultipleChoice from "./multipleChoice/createMultipleChoice";
+import CreateYesNoQuestion from "./yesNoQuestion/createYesNoQuestion.jsx";
 export default function Question() {
   const typeOptions = ["Yes/No", "Multiple choice", "Multiple selection"];
   const [typeChoice, setTypeChoice] = useState(typeOptions[1]);
@@ -38,7 +39,7 @@ export default function Question() {
         </div>
         <div className="w-full px-2">
           {typeChoice === typeOptions[0] ? (
-            <div>yes/no question undefined</div>
+            <CreateYesNoQuestion />
           ) : null}
           {typeChoice === typeOptions[1] ? (
             <CreateMultipleChoice />
