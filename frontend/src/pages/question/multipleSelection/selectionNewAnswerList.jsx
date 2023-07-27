@@ -8,7 +8,7 @@ export default function SelectionAnswerList({ answers, handleChange }) {
     let tempList=correctAnswers;
     tempList.push(value);
     setCorrectAnswers(tempList);
-    handleChange({answers:answers,answer:correctAnswers});
+    handleChange({answers:answers,correctAnswers:correctAnswers});
   }
 
   function add(event) {
