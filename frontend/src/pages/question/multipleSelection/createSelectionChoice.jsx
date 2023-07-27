@@ -51,7 +51,7 @@ export default function CreateSelectionChoice() {
 
   return (
     <form
-      className="flex flex-col w-full md:justify-start justify-center bg-slate-200 gap-2"
+      className="flex flex-col w-full md:justify-start justify-center bg-slate-100 gap-2"
       // method="post"
       // encType="multipart/form-data"
     >

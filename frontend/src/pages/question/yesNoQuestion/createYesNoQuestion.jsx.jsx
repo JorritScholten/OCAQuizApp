@@ -95,12 +95,14 @@ export default function CreateYesNoQuestion() {
           Toggle
         </button>
       </div>
-      <NewTagList
-        tags={tagsOBJ.tags}
-        handleChange={(tagsOBJ) => {
-          setTags(tagsOBJ);
-        }}
-      />
+      <div className="bg-slate-300 p-2 w-full md:w-1/2 self-center">
+        <NewTagList
+          tags={tagsOBJ.tags}
+          handleChange={(tagsOBJ) => {
+            setTags(tagsOBJ);
+          }}
+        />
+      </div>
       {question === "" ||
       referenceToBook === "" ||
       tagsOBJ.tags.length === 0 ? (
