@@ -5,5 +5,9 @@
 @layer base {
   h1 {
     @apply text-2xl;
+    @apply text-center;
+  }
+  h2 {
+    @apply text-xl;
   }
 }

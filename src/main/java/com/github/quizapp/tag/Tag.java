@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +16,7 @@ public class Tag {
     @GeneratedValue
     private long id;
 
+    @Setter
     @Column(nullable = false, unique = true, columnDefinition = "text")
     private String name;
 
