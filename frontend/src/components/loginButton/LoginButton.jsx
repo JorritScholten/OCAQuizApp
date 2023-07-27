@@ -9,7 +9,7 @@ export default function Login() {
           <li>
             <Link
               to="/login"
-              className="bg-green-600 text-white px-2 py-2 rounded"
+              className="bg-green-600 text-white px-2 py-2 rounded text-lg md:text-2xl"
             >
               Login
             </Link>

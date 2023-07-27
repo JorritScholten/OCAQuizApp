@@ -1,52 +1,47 @@
 import React, { useState } from "react";
 import NewAnswerList from "./newAnswerList";
 import NewTagList from "./newTagList";
+import { performJSONFetch } from "../../../utils/fetch";
 
 export default function CreateMultipleChoice() {
   const [answersOBJ, setAnswers] = useState({
-    answer: "",
-    answers: [],
+    correctAnswer: "",
+    allAnswers: [],
   });
-  const [tags, setTags] = useState([]);
+  const [tagsOBJ, setTags] = useState({ tags: [] });
   const [question, setQuestion] = useState("");
   const [referenceToBook, setReferenceToBook] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const postBody = {
       type: "MULTIPLECHOICE",
       title: question,
       referenceToBook: referenceToBook,
-      answers: answersOBJ.answers.map((ans) => {
+      answers: answersOBJ.allAnswers.map((ans) => {
         return {
           answer: ans,
-          isCorrect: ans === answersOBJ.answer,
+          isCorrect: ans === answersOBJ.correctAnswer,
         };
       }),
-      tags: tags.map((tag) => {
+      tags: tagsOBJ.tags.map((tag) => {
         return { name: tag };
       }),
     };
-    console.log(postBody);
-    await fetch("http://localhost:8080/api/v1/question", {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(postBody),
-    }).then(() => {
-      setQuestion(""),
-        setReferenceToBook(""),
-        setTags([]),
+    await performJSONFetch(
+      "http://localhost:8080/api/v1/question",
+      "POST",
+      JSON.stringify(postBody)
+    ).then((res) => {
+      if (res.ok) {
+        setQuestion("");
+        setReferenceToBook("");
+        setTags({ tags: [] });
         setAnswers({
-          answer: "",
-          answers: [],
+          correctAnswer: "",
+          allAnswers: [],
         });
+      }
     });
   };
 
@@ -66,6 +61,7 @@ export default function CreateMultipleChoice() {
           type="text"
           id="bookreference"
           required
+          value={referenceToBook}
         />
       </label>
       <label htmlFor="question" className="text-center">
@@ -77,33 +73,47 @@ export default function CreateMultipleChoice() {
           type="text"
           id="question"
           required
+          value={question}
         />
       </label>
       <div className="flex flex-row justify-evenly w-full bg-slate-300">
         {
           <NewAnswerList
-            answers={answersOBJ.answers}
+            allAnswers={answersOBJ.allAnswers}
             handleChange={(e) => {
               setAnswers(e);
             }}
           />
         }
         <NewTagList
-          tags={tags}
-          handleChange={(e) => {
-            setTags(e);
+          tags={tagsOBJ.tags}
+          handleChange={(tagsOBJ) => {
+            setTags(tagsOBJ);
           }}
         />
       </div>
-      <button
-        onClick={handleSubmit}
-        type="submit"
-        id="type"
-        value="multiple-choice"
-        className="bg-gray-300 text-center"
-      >
-        Submit
-      </button>
+      {answersOBJ.allAnswers.length === 0 ||
+      question === "" ||
+      referenceToBook === "" ||
+      tagsOBJ.tags.length === 0 ? (
+        <div
+          className="bg-gray-300 text-center"
+          id="type"
+          value="multiple-choice"
+        >
+          Submit
+        </div>
+      ) : (
+        <button
+          onClick={handleSubmit}
+          className="bg-green-300 text-center"
+          type="submit"
+          id="type"
+          value="multiple-choice"
+        >
+          Submit
+        </button>
+      )}
     </form>
   );
 }

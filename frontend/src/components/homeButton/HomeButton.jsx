@@ -7,7 +7,10 @@ export default function Home() {
       <nav>
         <ul>
           <li>
-            <Link to="/" className="bg-green-600 text-white px-2 py-2 rounded">
+            <Link
+              to="/"
+              className="bg-green-600 text-white px-2 py-2 rounded text-lg md:text-2xl"
+            >
               Home
             </Link>
           </li>

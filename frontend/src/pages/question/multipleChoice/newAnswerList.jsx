@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 
-export default function NewAnswerList({ answers, handleChange }) {
+export default function NewAnswerList({ allAnswers, handleChange }) {
   const [newAnswer, setNewAnswer] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
 
   function add(event) {
     event.preventDefault();
-    let tempAnwers = answers;
+    if (allAnswers.length === 0) {
+      setCorrectAnswer(newAnswer);
+    }
+    let tempAnwers = allAnswers;
     tempAnwers.push(newAnswer);
     let resAnswers = tempAnwers;
-    handleChange({answers:resAnswers,answer:correctAnswer});
+    handleChange({ allAnswers: resAnswers, correctAnswer: correctAnswer });
     setNewAnswer("");
   }
 
@@ -19,10 +22,10 @@ export default function NewAnswerList({ answers, handleChange }) {
   }
 
   const remove = (answer) => {
-    let tempAnwers = answers;
+    let tempAnwers = allAnswers;
     let resAnswers = tempAnwers.filter((item) => item != answer);
 
-    handleChange({answers:resAnswers,answer:{correctAnswer}});
+    handleChange({ allAnswers: resAnswers, correctAnswer: { correctAnswer } });
   };
 
   return (
@@ -40,32 +43,38 @@ export default function NewAnswerList({ answers, handleChange }) {
         </button>
       </label>
       <div className="flex flex-col">
-        {answers.map((item) => {
+        {allAnswers.map((answer) => {
           return (
             <AnswerInput
-            className="flex flex-row justify-between"
-              key={item}
-              value={item}
-              isCorrect={item === correctAnswer}
-              removeHandler={(e) => {
-                remove(e);
+              className="flex flex-row justify-between"
+              key={answer}
+              value={answer}
+              isCorrect={answer === correctAnswer}
+              removeHandler={(answerToRemove) => {
+                remove(answerToRemove);
               }}
-              setCorrectHandler={(e) => {
-                setCorrectAnswer(e);
+              setCorrectHandler={(newCorrectAnswer) => {
+                setCorrectAnswer(newCorrectAnswer);
+                let tempAnwers = allAnswers;
+                handleChange({
+                  allAnswers: tempAnwers,
+                  correctAnswer: newCorrectAnswer,
+                });
               }}
-            ></AnswerInput>
+            />
           );
         })}
       </div>
     </div>
   );
 }
+
 function AnswerInput({ value, isCorrect, setCorrectHandler, removeHandler }) {
   return (
     <div>
       <span>{value}</span>
       <button
-      className="text-center p-1 bg-slate-500 m-1 rounded-full"
+        className="text-center p-1 bg-slate-500 m-1 rounded-full"
         onClick={(event) => {
           event.preventDefault();
           removeHandler(value);
@@ -76,8 +85,8 @@ function AnswerInput({ value, isCorrect, setCorrectHandler, removeHandler }) {
       {isCorrect ? (
         <button
           className="bg-green-300 text-center p-1 m-1 rounded-full"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={(event) => {
+            event.preventDefault();
           }}
         >
           correct
@@ -85,8 +94,8 @@ function AnswerInput({ value, isCorrect, setCorrectHandler, removeHandler }) {
       ) : (
         <button
           className="bg-red-300 text-center p-1 m-1 rounded-full"
-          onClick={(e) => {
-            e.preventDefault();
+          onClick={(event) => {
+            event.preventDefault();
             setCorrectHandler(value);
           }}
         >
