@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import Header from "../../components/header";
-import YesNoQuestion from "./yesNoQuestion";
-
 import CreateMultipleChoice from "./multipleChoice/createMultipleChoice";
 import CreateYesNoQuestion from "./yesNoQuestion/createYesNoQuestion.jsx";
 export default function Question() {

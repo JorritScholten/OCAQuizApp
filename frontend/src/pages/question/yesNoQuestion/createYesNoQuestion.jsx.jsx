@@ -43,10 +43,6 @@ export default function CreateYesNoQuestion() {
     });
   };
 
-  function toggleIsCorrect() {
-    setYesIsCorrect(!yesIsCorrect);
-  }
-
   return (
     <form
       className="flex flex-col w-full md:justify-start justify-center bg-slate-100 gap-2"
