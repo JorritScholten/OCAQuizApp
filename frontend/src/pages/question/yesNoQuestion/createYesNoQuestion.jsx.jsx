@@ -46,8 +46,8 @@ export default function CreateYesNoQuestion() {
   return (
     <form
       className="flex flex-col w-full md:justify-start justify-center bg-slate-100 gap-2"
-      method="post"
-      encType="multipart/form-data"
+      // method="post"
+      // encType="multipart/form-data"
     >
       <h2 className="text-center">Yes/No question</h2>
       <label

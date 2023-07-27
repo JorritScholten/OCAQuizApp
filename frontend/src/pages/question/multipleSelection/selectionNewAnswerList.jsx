@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FiCheck, FiDelete, FiPlus, FiX } from "react-icons/fi";
 
 export default function SelectionAnswerList({ answers, handleChange }) {
   const [newAnswer, setNewAnswer] = useState("");
@@ -51,20 +52,25 @@ export default function SelectionAnswerList({ answers, handleChange }) {
   };
 
   return (
-    <div className="flex flex-col">
-      <p className="text-center">answers</p>
-      <label htmlFor="add-answer">
+    <div className="flex flex-col w-full gap-2">
+      <h2 className="text-center">Answers:</h2>
+      <label htmlFor="add-answer" className="w-full grid grid-cols-9">
         <input
           type="text"
           id="add-answer"
           onChange={handleChangeAnswer}
           value={newAnswer}
+          className="w-full col-span-8"
         />
-        <button className="bg-blue-200 text-center" onClick={(e) => add(e)}>
-          add
+        <button
+          className="bg-green-300 place-self-stretch text-center px-2"
+          onClick={(e) => add(e)}
+          title="Add answer"
+        >
+          <FiPlus className="w-full" />
         </button>
       </label>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-2">
         {answers.map((item) => {
           return (
             <AnswerInput
@@ -81,13 +87,14 @@ export default function SelectionAnswerList({ answers, handleChange }) {
               setCorrectHandler={(e) => {
                 addToanswers(e);
               }}
-            ></AnswerInput>
+            />
           );
         })}
       </div>
     </div>
   );
 }
+
 function AnswerInput({
   value,
   isCorrect,
@@ -96,36 +103,39 @@ function AnswerInput({
   removeHandler,
 }) {
   return (
-    <div>
-      <span>{value}</span>
+    <div className="grid grid-cols-9 bg-slate-100 justify-center">
+      <span className="col-span-7 text-center place-self-center">{value}</span>
       <button
-        className="text-center p-1 bg-slate-500 m-1 rounded-full"
+        className="text-center place-self-stretch "
         onClick={(event) => {
           event.preventDefault();
           removeHandler(value);
         }}
+        title="Delete answer"
       >
-        remove
+        <FiDelete className="text-red-700 w-full" />
       </button>
       {isCorrect ? (
         <button
-          className="bg-green-300 text-center p-1 m-1 rounded-full"
+          className="text-center place-self-center"
+          title="Is correct answer"
           onClick={(e) => {
             e.preventDefault();
             unsetCorrectHandler(value);
           }}
         >
-          correct
+          <FiCheck className="text-green-700 w-full" />
         </button>
       ) : (
         <button
-          className="bg-red-300 text-center p-1 m-1 rounded-full"
+          className="text-center place-self-stretch "
           onClick={(e) => {
             e.preventDefault();
             setCorrectHandler(value);
           }}
+          title="Set as correct answer"
         >
-          set correct
+          <FiX className="text-red-700 w-full" />
         </button>
       )}
     </div>

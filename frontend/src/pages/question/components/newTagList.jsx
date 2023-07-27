@@ -13,7 +13,7 @@ export default function NewTagList({ tags, handleChange }) {
     tempTags.push(newTag);
     let resTags = tempTags;
 
-    handleChange(resTags);
+    handleChange({ tags: resTags });
     setNewTag("");
   }
 
@@ -26,7 +26,7 @@ export default function NewTagList({ tags, handleChange }) {
     let tempTags = tags;
     let resTags = tempTags.filter((item) => item != tag);
 
-    handleChange(resTags);
+    handleChange({ tags: resTags });
   }
 
   return (
@@ -48,7 +48,6 @@ export default function NewTagList({ tags, handleChange }) {
           <FiPlus className="w-full" />
         </button>
       </label>
-
       <div className="flex flex-col gap-2">
         {tags.map((tag) => (
           <TagInput
