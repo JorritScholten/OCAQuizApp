@@ -14,7 +14,7 @@ export default function NewTagList({ tags, handleChange }) {
     tempTags.push(newTag)
     let resTags = tempTags
 
-    handleChange(resTags);
+    handleChange({tags:resTags});
     setNewTag("");
   }
 
@@ -22,7 +22,7 @@ export default function NewTagList({ tags, handleChange }) {
     let tempTags = tags;
     let resTags = tempTags.filter((item) => item != tag);
 
-    handleChange(resTags);
+    handleChange({tags:resTags});
   }
 
   return (
