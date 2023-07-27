@@ -12,8 +12,8 @@ export default function CreateMultipleChoice() {
   const [question, setQuestion] = useState("");
   const [referenceToBook, setReferenceToBook] = useState("");
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const postBody = {
       type: "MULTIPLECHOICE",
       title: question,
