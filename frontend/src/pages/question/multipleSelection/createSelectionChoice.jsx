@@ -4,10 +4,10 @@ import NewTagList from "../multipleChoice/newTagList";
 
 export default function CreateSelectionChoice() {
   const [answersOBJ, setAnswers] = useState({
-    answers: [],
+    allAnswers: [],
     correctAnswers: [],
   });
-  const [tags, setTags] = useState([]);
+  const [tagsObj, setTags] = useState([]);
   const [question, setQuestion] = useState("");
   const [referenceToBook, setReferenceToBook] = useState("");
 
@@ -19,13 +19,13 @@ export default function CreateSelectionChoice() {
       type: "MULTIPLESELECTION",
       title: question,
       referenceToBook: referenceToBook,
-      answers: answersOBJ.answers.map((ans) => {
+      answers: answersOBJ.allAnswers.map((ans) => {
         return {
           answer: ans,
           isCorrect: answersOBJ.correctAnswers.includes(ans),
         };
       }),
-      tags: tags.map((tag) => {
+      tags: tagsObj.map((tag) => {
         return { name: tag };
       }),
     };
@@ -53,8 +53,8 @@ export default function CreateSelectionChoice() {
           setReferenceToBook(""),
           setTags([]),
           setAnswers({
-            answers: [],
-            correctAnswers:[]
+            allAnswers: [],
+            correctAnswers: [],
           });
       });
   };
@@ -91,31 +91,44 @@ export default function CreateSelectionChoice() {
       <div className="flex flex-row justify-evenly w-full bg-slate-300">
         {
           <SelectionAnswerList
-            answers={answersOBJ.answers}
+            answers={answersOBJ.allAnswers}
             handleChange={(e) => {
               setAnswers(e);
             }}
           />
         }
         <NewTagList
-          tags={tags}
+          tags={tagsObj}
           handleChange={(e) => {
             setTags(e);
           }}
         />
       </div>
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-        type="submit"
-        id="type"
-        value="multiple-choice"
-        className="bg-gray-300 text-center"
-      >
-        Submit
-      </button>
+      {answersOBJ.allAnswers.length === 0 ||
+      question === "" ||
+      referenceToBook === "" ||
+      tagsObj.length === 0 ? (
+        <div
+          className="bg-gray-300 text-center"
+          id="type"
+          value="multiple-choice"
+        >
+          Submit
+        </div>
+      ) : (
+        <button
+          onClick={(ev) => {
+            ev.preventDefault();
+            handleSubmit();
+          }}
+          className="bg-green-300 text-center"
+          type="submit"
+          id="type"
+          value="multiple-choice"
+        >
+          Submit
+        </button>
+      )}
     </form>
   );
 }

@@ -8,7 +8,7 @@ export default function SelectionAnswerList({ answers, handleChange }) {
     let tempList=correctAnswers;
     tempList.push(value);
     setCorrectAnswers(tempList);
-    handleChange({answers:answers,correctAnswers:correctAnswers});
+    handleChange({allAnswers:answers,correctAnswers:correctAnswers});
   }
 
   function add(event) {
@@ -16,7 +16,7 @@ export default function SelectionAnswerList({ answers, handleChange }) {
     let tempAnwers = answers;
     tempAnwers.push(newAnswer);
     let resAnswers = tempAnwers;
-    handleChange({answers:resAnswers,correctAnswers:correctAnswers});
+    handleChange({allAnswers:resAnswers,correctAnswers:correctAnswers});
     setNewAnswer("");
   }
 
@@ -30,7 +30,7 @@ export default function SelectionAnswerList({ answers, handleChange }) {
     let resAnswers = tempAnwers.filter((item) => item != answer);
     setCorrectAnswers(correctAnswers.filter((item)=>{item!= answer}))
 
-    handleChange({answers:resAnswers,answer:{correctAnswer: correctAnswers}});
+    handleChange({allAnswers:resAnswers,answer:{correctAnswer: correctAnswers}});
     
   };
 
