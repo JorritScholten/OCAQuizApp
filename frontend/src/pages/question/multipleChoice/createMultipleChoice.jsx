@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NewAnswerList from "./newAnswerList";
-import NewTagList from "./newTagList";
+import NewTagList from "../components";
 import { performJSONFetch } from "../../../utils/fetch";
 
 export default function CreateMultipleChoice() {
