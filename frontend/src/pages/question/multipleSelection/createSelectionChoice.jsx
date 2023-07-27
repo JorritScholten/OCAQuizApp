@@ -25,7 +25,7 @@ export default function CreateSelectionChoice() {
           isCorrect: answersOBJ.correctAnswers.includes(ans),
         };
       }),
-      tags: tagsObj.map((tag) => {
+      tags: tagsObj.tags.map((tag) => {
         return { name: tag };
       }),
     };
@@ -51,7 +51,7 @@ export default function CreateSelectionChoice() {
       .then(() => {
         setQuestion(""),
           setReferenceToBook(""),
-          setTags([]),
+          setTags({tags:[]}),
           setAnswers({
             allAnswers: [],
             correctAnswers: [],
