@@ -43,6 +43,10 @@ export default function CreateYesNoQuestion() {
     });
   };
 
+  function toggleIsCorrect() {
+    setYesIsCorrect(!yesIsCorrect);
+  }
+
   return (
     <form
       className="flex flex-col w-full md:justify-start justify-center bg-slate-100 gap-2"
@@ -82,6 +86,19 @@ export default function CreateYesNoQuestion() {
           value={referenceToBook}
         />
       </label>
+      <div className="text-center place-self-center w-fit">
+        <label htmlFor="yesiscorrect" className="px-2">
+          {yesIsCorrect ? "Yes is correct" : "No is correct"}
+        </label>
+        <button
+          onClick={() => setYesIsCorrect(!yesIsCorrect)}
+          className="bg-green-300 text-center self-center px-2"
+          id="yesiscorrect"
+          type="button"
+        >
+          Toggle
+        </button>
+      </div>
       <NewTagList
         tags={tagsOBJ.tags}
         handleChange={(tagsOBJ) => {
