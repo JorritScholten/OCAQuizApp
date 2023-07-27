@@ -1,33 +1,34 @@
 import React, { useState } from "react";
-import NewAnswerList from "./newAnswerList";
 import NewTagList from "../components";
 import { performJSONFetch } from "../../../utils/fetch";
 
-export default function CreateMultipleChoice() {
-  const [answersOBJ, setAnswers] = useState({
-    correctAnswer: "",
-    allAnswers: [],
-  });
+export default function CreateYesNoQuestion() {
   const [tagsOBJ, setTags] = useState({ tags: [] });
   const [question, setQuestion] = useState("");
   const [referenceToBook, setReferenceToBook] = useState("");
+  const [yesIsCorrect, setYesIsCorrect] = useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const postBody = {
-      type: "MULTIPLECHOICE",
+      type: "YESNO",
       title: question,
       referenceToBook: referenceToBook,
-      answers: answersOBJ.allAnswers.map((ans) => {
-        return {
-          answer: ans,
-          isCorrect: ans === answersOBJ.correctAnswer,
-        };
-      }),
+      answers: [
+        {
+          answer: "Yes",
+          isCorrect: yesIsCorrect,
+        },
+        {
+          answer: "No",
+          isCorrect: !yesIsCorrect,
+        },
+      ],
       tags: tagsOBJ.tags.map((tag) => {
         return { name: tag };
       }),
     };
+    console.log(postBody);
     await performJSONFetch(
       "http://localhost:8080/api/v1/question",
       "POST",
@@ -37,10 +38,7 @@ export default function CreateMultipleChoice() {
         setQuestion("");
         setReferenceToBook("");
         setTags({ tags: [] });
-        setAnswers({
-          correctAnswer: "",
-          allAnswers: [],
-        });
+        setYesIsCorrect(true);
       }
     });
   };
@@ -51,7 +49,7 @@ export default function CreateMultipleChoice() {
       // method="post"
       // encType="multipart/form-data"
     >
-      <h2 className="text-center">Multiple choice question</h2>
+      <h2 className="text-center">Yes/No question</h2>
       <label
         htmlFor="question"
         className="text-center flex md:flex-row flex-col"
@@ -84,25 +82,26 @@ export default function CreateMultipleChoice() {
           value={referenceToBook}
         />
       </label>
-      <div className="flex justify-evenly w-full bg-slate-300 flex-col md:flex-row p-2 gap-2">
-        {
-          <NewAnswerList
-            allAnswers={answersOBJ.allAnswers}
-            handleChange={(e) => {
-              setAnswers(e);
-            }}
-          />
-        }
-        <NewTagList
-          tags={tagsOBJ.tags}
-          handleChange={(tagsOBJ) => {
-            setTags(tagsOBJ);
-          }}
-        />
+      <div className="text-center place-self-center w-fit">
+        <label htmlFor="yesiscorrect" className="px-2">
+          {yesIsCorrect ? "Yes is correct" : "No is correct"}
+        </label>
+        <button
+          onClick={() => setYesIsCorrect(!yesIsCorrect)}
+          className="bg-green-300 text-center self-center px-2"
+          id="yesiscorrect"
+          type="button"
+        >
+          Toggle
+        </button>
       </div>
-      {answersOBJ.allAnswers.length < 2 ||
-      answersOBJ.correctAnswer === "" ||
-      question === "" ||
+      <NewTagList
+        tags={tagsOBJ.tags}
+        handleChange={(tagsOBJ) => {
+          setTags(tagsOBJ);
+        }}
+      />
+      {question === "" ||
       referenceToBook === "" ||
       tagsOBJ.tags.length === 0 ? (
         <div
