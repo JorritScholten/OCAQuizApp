@@ -28,8 +28,13 @@ export default function NewAnswerList({ allAnswers, handleChange }) {
   const remove = (answer) => {
     let tempAnwers = allAnswers;
     let resAnswers = tempAnwers.filter((item) => item != answer);
-
-    handleChange({ allAnswers: resAnswers, correctAnswer: { correctAnswer } });
+    handleChange({
+      allAnswers: resAnswers,
+      correctAnswer: answer === correctAnswer ? "" : correctAnswer,
+    });
+    if (answer === correctAnswer) {
+      setCorrectAnswer("");
+    }
   };
 
   return (
@@ -48,7 +53,7 @@ export default function NewAnswerList({ allAnswers, handleChange }) {
           onClick={(e) => add(e)}
           title="Add answer"
         >
-          <FiPlus className="w-full"/>
+          <FiPlus className="w-full" />
         </button>
       </label>
       <div className="flex flex-col gap-2">
@@ -93,7 +98,10 @@ function AnswerInput({ value, isCorrect, setCorrectHandler, removeHandler }) {
         <FiDelete className="text-red-700 w-full" />
       </button>
       {isCorrect ? (
-        <div className="text-center place-self-center" title="Is correct answer">
+        <div
+          className="text-center place-self-center"
+          title="Is correct answer"
+        >
           <FiCheck className="text-green-700 w-full" />
         </div>
       ) : (

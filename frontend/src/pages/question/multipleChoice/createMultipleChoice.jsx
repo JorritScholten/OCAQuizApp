@@ -52,7 +52,10 @@ export default function CreateMultipleChoice() {
       encType="multipart/form-data"
     >
       <h2 className="text-center">Multiple choice question</h2>
-      <label htmlFor="question" className="text-center flex md:flex-row flex-col">
+      <label
+        htmlFor="question"
+        className="text-center flex md:flex-row flex-col"
+      >
         <span className="px-2 md:w-1/3">Question:</span>
         <input
           onChange={(e) => {
@@ -65,7 +68,10 @@ export default function CreateMultipleChoice() {
           value={question}
         />
       </label>
-      <label htmlFor="bookreference" className="text-center flex md:flex-row flex-col">
+      <label
+        htmlFor="bookreference"
+        className="text-center flex md:flex-row flex-col"
+      >
         <span className="px-2 md:w-1/3">Reference to book:</span>
         <input
           onChange={(e) => {
@@ -94,7 +100,8 @@ export default function CreateMultipleChoice() {
           }}
         />
       </div>
-      {answersOBJ.allAnswers.length <2 ||
+      {answersOBJ.allAnswers.length < 2 ||
+      answersOBJ.correctAnswer === "" ||
       question === "" ||
       referenceToBook === "" ||
       tagsOBJ.tags.length === 0 ? (

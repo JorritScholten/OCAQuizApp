@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FiDelete, FiPlus, FiX } from "react-icons/fi";
+import { FiDelete, FiPlus } from "react-icons/fi";
 
 export default function NewTagList({ tags, handleChange }) {
   const [newTag, setNewTag] = useState("");
