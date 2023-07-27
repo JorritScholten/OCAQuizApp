@@ -31,9 +31,9 @@ public class Seeder implements CommandLineRunner {
     private void seedTags() {
         if (tagRepository.count() == 0) {
             var tagDTOs = Set.of(
-                    new TagDTO("chapter 1"),
-                    new TagDTO("chapter 2"),
-                    new TagDTO("chapter 3"),
+                    new TagDTO("exception handling"),
+                    new TagDTO("inheritance"),
+                    new TagDTO("flow control"),
                     new TagDTO("chapter 4"),
                     new TagDTO("chapter 5"),
                     new TagDTO("chapter 6"),
