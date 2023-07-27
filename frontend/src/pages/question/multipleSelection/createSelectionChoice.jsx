@@ -11,18 +11,18 @@ export default function CreateSelectionChoice() {
   const [question, setQuestion] = useState("");
   const [referenceToBook, setReferenceToBook] = useState("");
 
-  const handleSubmit = async (e) => {
-
-    if(answersOBJ.correctAnswers.length<1){return;}
-    e.preventDefault();
+  const handleSubmit = async () => {
+    if (answersOBJ.correctAnswers.length < 1) {
+      return;
+    }
     const postBody = {
-      type: "SELECTIONCHOICE",
+      type: "MULTIPLESELECTION",
       title: question,
       referenceToBook: referenceToBook,
       answers: answersOBJ.answers.map((ans) => {
         return {
           answer: ans,
-          isCorrect: answersOBJ.answer.includes(ans),
+          isCorrect: answersOBJ.correctAnswers.includes(ans),
         };
       }),
       tags: tags.map((tag) => {
@@ -41,15 +41,22 @@ export default function CreateSelectionChoice() {
       redirect: "follow",
       referrerPolicy: "no-referrer",
       body: JSON.stringify(postBody),
-    }).then(() => {
-      setQuestion(""),
-        setReferenceToBook(""),
-        setTags([]),
-        setAnswers({
-          answer: "",
-          answers: [],
-        });
-    });
+    })
+      .then((resp) => {
+        if (!resp.ok) {
+          throw resp.status;
+        }
+        console.log(resp.status);
+      })
+      .then(() => {
+        setQuestion(""),
+          setReferenceToBook(""),
+          setTags([]),
+          setAnswers({
+            answers: [],
+            correctAnswers:[]
+          });
+      });
   };
 
   return (
