@@ -1,15 +1,22 @@
 import React, { useState } from "react";
+import { FiCheck, FiDelete, FiPlus, FiX } from "react-icons/fi";
 
-export default function NewAnswerList({ answers, handleChange }) {
+export default function NewAnswerList({ allAnswers, handleChange }) {
   const [newAnswer, setNewAnswer] = useState("");
   const [correctAnswer, setCorrectAnswer] = useState("");
 
   function add(event) {
     event.preventDefault();
-    let tempAnwers = answers;
+    if (newAnswer === "") {
+      return;
+    }
+    if (allAnswers.length === 0) {
+      setCorrectAnswer(newAnswer);
+    }
+    let tempAnwers = allAnswers;
     tempAnwers.push(newAnswer);
     let resAnswers = tempAnwers;
-    handleChange({answers:resAnswers,answer:correctAnswer});
+    handleChange({ allAnswers: resAnswers, correctAnswer: correctAnswer });
     setNewAnswer("");
   }
 
@@ -19,78 +26,94 @@ export default function NewAnswerList({ answers, handleChange }) {
   }
 
   const remove = (answer) => {
-    let tempAnwers = answers;
+    let tempAnwers = allAnswers;
     let resAnswers = tempAnwers.filter((item) => item != answer);
-
-    handleChange({answers:resAnswers,answer:{correctAnswer}});
+    handleChange({
+      allAnswers: resAnswers,
+      correctAnswer: answer === correctAnswer ? "" : correctAnswer,
+    });
+    if (answer === correctAnswer) {
+      setCorrectAnswer("");
+    }
   };
 
   return (
-    <div className="flex flex-col">
-      <p className="text-center">answers</p>
-      <label htmlFor="add-answer">
+    <div className="flex flex-col w-full gap-2">
+      <h2 className="text-center">Answers:</h2>
+      <label htmlFor="add-answer" className="w-full grid grid-cols-9">
         <input
           type="text"
           id="add-answer"
           onChange={handleChangeAnswer}
           value={newAnswer}
+          className="w-full col-span-8"
         />
-        <button className="bg-blue-200 text-center" onClick={(e) => add(e)}>
-          add
+        <button
+          className="bg-green-300 place-self-stretch text-center px-2"
+          onClick={(e) => add(e)}
+          title="Add answer"
+        >
+          <FiPlus className="w-full" />
         </button>
       </label>
-      <div className="flex flex-col">
-        {answers.map((item) => {
+      <div className="flex flex-col gap-2">
+        {allAnswers.map((answer) => {
           return (
             <AnswerInput
-            className="flex flex-row justify-between"
-              key={item}
-              value={item}
-              isCorrect={item === correctAnswer}
-              removeHandler={(e) => {
-                remove(e);
+              className="flex flex-row justify-between"
+              key={answer}
+              value={answer}
+              isCorrect={answer === correctAnswer}
+              removeHandler={(answerToRemove) => {
+                remove(answerToRemove);
               }}
-              setCorrectHandler={(e) => {
-                setCorrectAnswer(e);
+              setCorrectHandler={(newCorrectAnswer) => {
+                setCorrectAnswer(newCorrectAnswer);
+                let tempAnwers = allAnswers;
+                handleChange({
+                  allAnswers: tempAnwers,
+                  correctAnswer: newCorrectAnswer,
+                });
               }}
-            ></AnswerInput>
+            />
           );
         })}
       </div>
     </div>
   );
 }
+
 function AnswerInput({ value, isCorrect, setCorrectHandler, removeHandler }) {
   return (
-    <div>
-      <span>{value}</span>
+    <div className="grid grid-cols-9 bg-slate-100 justify-center">
+      <span className="col-span-7 text-center place-self-center">{value}</span>
       <button
-      className="text-center p-1 bg-slate-500 m-1 rounded-full"
+        className="text-center place-self-stretch "
         onClick={(event) => {
           event.preventDefault();
           removeHandler(value);
         }}
+        title="Delete answer"
       >
-        remove
+        <FiDelete className="text-red-700 w-full" />
       </button>
       {isCorrect ? (
-        <button
-          className="bg-green-300 text-center p-1 m-1 rounded-full"
-          onClick={(e) => {
-            e.preventDefault();
-          }}
+        <div
+          className="text-center place-self-center"
+          title="Is correct answer"
         >
-          correct
-        </button>
+          <FiCheck className="text-green-700 w-full" />
+        </div>
       ) : (
         <button
-          className="bg-red-300 text-center p-1 m-1 rounded-full"
-          onClick={(e) => {
-            e.preventDefault();
+          className="text-center place-self-stretch "
+          onClick={(event) => {
+            event.preventDefault();
             setCorrectHandler(value);
           }}
+          title="Set as correct answer"
         >
-          set correct
+          <FiX className="text-red-700 w-full" />
         </button>
       )}
     </div>

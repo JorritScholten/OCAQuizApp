@@ -30,4 +30,14 @@ public class TagRepositoryHandleDTOImpl implements TagRepositoryHandleDTO {
     public List<Tag> saveAll(Set<TagDTO> dtos) {
         return dtos.stream().map(this::save).collect(Collectors.toList());
     }
+
+    @Override
+    public void delete(TagDTO dto) throws RuntimeException {
+        var tag = tagRepository.findByName(dto.name());
+        if (tag.size() == 1) {
+            tagRepository.delete((Tag) tag.toArray()[0]);
+        } else {
+            throw new RuntimeException("Can't find Tag with name [" + dto.name() + "] for deletion.");
+        }
+    }
 }

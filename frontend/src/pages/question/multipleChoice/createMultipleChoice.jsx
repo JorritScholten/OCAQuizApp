@@ -1,83 +1,62 @@
 import React, { useState } from "react";
 import NewAnswerList from "./newAnswerList";
 import NewTagList from "./newTagList";
+import { performJSONFetch } from "../../../utils/fetch";
 
 export default function CreateMultipleChoice() {
   const [answersOBJ, setAnswers] = useState({
-    answer: "",
-    answers: [],
+    correctAnswer: "",
+    allAnswers: [],
   });
-  const [tags, setTags] = useState([]);
+  const [tagsOBJ, setTags] = useState({ tags: [] });
   const [question, setQuestion] = useState("");
   const [referenceToBook, setReferenceToBook] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (answersOBJ.answers.length < 1) {
-      console.log("no answers");
-      return;
-    }
-    if (answersOBJ.answer==="") {
-      console.log("no answer correct");
-      return;
-    }
     const postBody = {
       type: "MULTIPLECHOICE",
       title: question,
       referenceToBook: referenceToBook,
-      answers: answersOBJ.answers.map((ans) => {
+      answers: answersOBJ.allAnswers.map((ans) => {
         return {
           answer: ans,
-          isCorrect: ans === answersOBJ.answer,
+          isCorrect: ans === answersOBJ.correctAnswer,
         };
       }),
-      tags: tags.map((tag) => {
+      tags: tagsOBJ.tags.map((tag) => {
         return { name: tag };
       }),
     };
-    console.log(postBody);
-    await fetch("http://localhost:8080/api/v1/question", {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-      body: JSON.stringify(postBody),
-    }).then(() => {
-      setQuestion(""),
-        setReferenceToBook(""),
-        setTags([]),
+    await performJSONFetch(
+      "http://localhost:8080/api/v1/question",
+      "POST",
+      JSON.stringify(postBody)
+    ).then((res) => {
+      if (res.ok) {
+        setQuestion("");
+        setReferenceToBook("");
+        setTags({ tags: [] });
         setAnswers({
-          answer: "",
-          answers: [],
+          correctAnswer: "",
+          allAnswers: [],
         });
+      }
     });
   };
 
   return (
     <form
-      className="flex flex-col w-full md:justify-start justify-center bg-slate-200"
+      className="flex flex-col w-full md:justify-start justify-center bg-slate-100 gap-2"
       method="post"
       encType="multipart/form-data"
     >
       <h2 className="text-center">Multiple choice question</h2>
-      <label htmlFor="bookreference" className="text-center">
-        <span>reference</span>
-        <input
-          onChange={(e) => {
-            setReferenceToBook(e.target.value);
-          }}
-          type="text"
-          id="bookreference"
-          required
-        />
-      </label>
-      <label htmlFor="question" className="text-center">
-        <span>question</span>
+      <label
+        htmlFor="question"
+        className="text-center flex md:flex-row flex-col"
+      >
+        <span className="px-2 md:w-1/3">Question:</span>
         <input
           onChange={(e) => {
             setQuestion(e.target.value);
@@ -85,33 +64,66 @@ export default function CreateMultipleChoice() {
           type="text"
           id="question"
           required
+          className="w-full"
+          value={question}
         />
       </label>
-      <div className="flex flex-row justify-evenly w-full bg-slate-300">
+      <label
+        htmlFor="bookreference"
+        className="text-center flex md:flex-row flex-col"
+      >
+        <span className="px-2 md:w-1/3">Reference to book:</span>
+        <input
+          onChange={(e) => {
+            setReferenceToBook(e.target.value);
+          }}
+          type="text"
+          id="bookreference"
+          required
+          className="w-full"
+          value={referenceToBook}
+        />
+      </label>
+      <div className="flex justify-evenly w-full bg-slate-300 flex-col md:flex-row p-2 gap-2">
         {
           <NewAnswerList
-            answers={answersOBJ.answers}
+            allAnswers={answersOBJ.allAnswers}
             handleChange={(e) => {
               setAnswers(e);
             }}
           />
         }
         <NewTagList
-          tags={tags}
-          handleChange={(e) => {
-            setTags(e);
+          tags={tagsOBJ.tags}
+          handleChange={(tagsOBJ) => {
+            setTags(tagsOBJ);
           }}
         />
       </div>
-      <button
-        onClick={handleSubmit}
-        type="submit"
-        id="type"
-        value="multiple-choice"
-        className="bg-gray-300 text-center"
-      >
-        Submit
-      </button>
+      {answersOBJ.allAnswers.length < 2 ||
+      answersOBJ.correctAnswer === "" ||
+      question === "" ||
+      referenceToBook === "" ||
+      tagsOBJ.tags.length === 0 ? (
+        <div
+          className="bg-slate-300 text-center text-red-700 self-center px-2"
+          id="type"
+          value="multiple-choice"
+          title="All fields must be filled."
+        >
+          Submit
+        </div>
+      ) : (
+        <button
+          onClick={handleSubmit}
+          className="bg-green-300 text-center self-center px-2"
+          type="submit"
+          id="type"
+          value="multiple-choice"
+        >
+          Submit
+        </button>
+      )}
     </form>
   );
 }
